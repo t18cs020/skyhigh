@@ -1,0 +1,49 @@
+stages:
+  - analysis
+analysis:
+  stage: analysis
+  image:
+    name: gradle:4.4.1-jdk8
+  allow_failure: true
+  script:
+    - |
+      cat << EOS > ${CI_PROJECT_DIR}/build.gradle
+      plugins {
+          id "org.sonarqube" version "2.6.1"
+      }
+      apply plugin: 'java'
+      apply plugin: 'org.sonarqube'
+      apply plugin: 'jacoco'
+      
+      sourceSets {
+          main {
+              java.srcDir         'src/'  // source dir
+              resources.srcDir    'src/'  // resource dir
+              output.classesDir   'bin/'  // output class dir
+              output.resourcesDir 'bin/'  // output resource dir
+          }
+          test {
+              java.srcDir         'test/' // test dir
+              output.classesDir   'bin/'  // output class dir
+          }
+      }
+      
+      dependencies {
+          testCompile 'junit:junit:4.+'
+      }
+      
+      repositories {
+          mavenCentral()
+      }
+      
+      sonarqube {
+          test.ignoreFailures=true
+          properties {
+              property "sonar.host.url", "http://sdd.kki.yamanashi.ac.jp:9000"
+          }
+      }
+      EOS
+    - cat ${CI_PROJECT_DIR}/build.gradle
+    - gradle -b ${CI_PROJECT_DIR}/build.gradle sonarqube 
+  tags:
+    - docker
