@@ -35,7 +35,7 @@ public class View extends JPanel {
     public void paintComponent(Graphics g) {
         // 画面をいったんクリア
         clear(g);
-
+        int u = 0;
         // 描画する
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         g.setColor(Color.WHITE);
@@ -47,8 +47,8 @@ public class View extends JPanel {
         // 画像の表示例
         g.drawImage(image, model.getMX(), model.getMY(), this);
 
+        /*
         //japan
-        int unko = 0;
         int width = 200;
         int height = 150;
         g.setColor(Color.WHITE);
@@ -64,7 +64,7 @@ public class View extends JPanel {
         g.setColor(Color.RED);
         g.fillRect(10, height + 10 + 65, width, 20);
         g.fillRect(50, height + 10, 20, height);
-        
+        */
     }
 
     /**
