@@ -35,7 +35,7 @@ public class View extends JPanel {
     public void paintComponent(Graphics g) {
         // 画面をいったんクリア
         clear(g);
-        int un = 0;
+        int a = 0;
         // 描画する
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         g.setColor(Color.WHITE);
