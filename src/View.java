@@ -46,7 +46,7 @@ public class View extends JPanel {
 
         // 画像の表示例
         g.drawImage(image, model.getMX(), model.getMY(), this);
-  /*  
+  
         //japan
         int width = 200;
         int height = 150;
@@ -63,7 +63,7 @@ public class View extends JPanel {
         g.setColor(Color.RED);
         g.fillRect(10, height + 10 + 65, width, 20);
         g.fillRect(50, height + 10, 20, height);
-        */
+        
     }
 
     /**
