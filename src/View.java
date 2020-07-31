@@ -46,8 +46,9 @@ public class View extends JPanel {
 
         // 画像の表示例
         g.drawImage(image, model.getMX(), model.getMY(), this);
-  
+
         //japan
+        int unko = 0;
         int width = 200;
         int height = 150;
         g.setColor(Color.WHITE);
