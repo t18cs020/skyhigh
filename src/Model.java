@@ -6,26 +6,29 @@ public class Model {
     // Sample instance variables:
     private int time;
     private String typedChar = "";
-    private int mx, my;
+//    private int mx, my;
+    
+    private Airplane ap;
 
     public Model() {
         view = new View(this);
         controller = new Controller(this);
+        ap = new Airplane(this);
     }
 
     public synchronized void processTimeElapsed(int msec) {
         time++;
+        ap.update();
         view.repaint();
     }
 
     public synchronized void processKeyTyped(String typed) {
         typedChar = typed;
+        ap.move(typedChar);
         view.repaint();
     }
 
-    public synchronized void processMousePressed(int x, int y) {
-        mx = x;
-        my = y;
+    public synchronized void processMousePressed() {
         view.playBombSound();
         view.repaint();
     }
@@ -49,13 +52,9 @@ public class Model {
     public String getTypedChar() {
         return typedChar;
     }
-
-    public int getMX() {
-        return mx;
-    }
-
-    public int getMY() {
-        return my;
+    
+    public Airplane getAirplane() {
+    	return ap;
     }
 
 }

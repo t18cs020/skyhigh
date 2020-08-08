@@ -50,7 +50,7 @@ public class Controller implements ActionListener, KeyListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        model.processMousePressed(e.getX(), e.getY());
+        model.processMousePressed();
     }
 
     @Override

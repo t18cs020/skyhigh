@@ -13,20 +13,19 @@ import javax.swing.JPanel;
 public class View extends JPanel {
 
     private Model model;
-
     // Sample instance variables:
     private Image image;
     private AudioClip sound;
-
+    private Dimension size;
     public View(Model model) {
         this.model = model;
-
+        
         // 画像を読み込む．画像ファイルは src においておくと bin に自動コピーされる
         image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("robot.png"));
         // サウンドを読み込む
         sound = Applet.newAudioClip(getClass().getResource("bomb.wav"));
     }
-
+    
     /**
      * 画面を描画する
      * @param g  描画用のグラフィックスオブジェクト
@@ -36,6 +35,8 @@ public class View extends JPanel {
         // 画面をいったんクリア
         clear(g);
         int abc = 0;
+        Airplane ap = model.getAirplane();
+        /*
         // 描画する
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         g.setColor(Color.WHITE);
@@ -43,28 +44,10 @@ public class View extends JPanel {
         g.drawString("Time: " + model.getTime(), 100, 200);
         g.drawString("Key Typed: " + model.getTypedChar(), 100, 250);
         g.drawString("Mouse Pressed: " + model.getMX() + "," + model.getMY(), 100, 300);
-
+*/
         // 画像の表示例
-        g.drawImage(image, model.getMX(), model.getMY(), this);
+        g.drawImage(image, ap.getApx(), ap.getApy(), this);
 
-        /*
-        //japan
-        int width = 200;
-        int height = 150;
-        g.setColor(Color.WHITE);
-        g.fillRect(10, 0, width, height);
-        g.setColor(Color.RED);
-        g.fillOval(60, 35, 80, 80);
- 
-        g.setColor(Color.BLUE);
-        g.fillRect(10, height + 10, width, height);
-        g.setColor(Color.WHITE);
-        g.fillRect(10, height + 10 + 55, width, 40);
-        g.fillRect(40, height + 10, 40, height);
-        g.setColor(Color.RED);
-        g.fillRect(10, height + 10 + 65, width, 20);
-        g.fillRect(50, height + 10, 20, height);
-        */
     }
 
     /**
@@ -72,7 +55,7 @@ public class View extends JPanel {
      * @param g  描画用のグラフィックスオブジェクト
      */
     public void clear(Graphics g) {
-        Dimension size = getSize();
+        size = getSize();
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, size.width, size.height);
     }
