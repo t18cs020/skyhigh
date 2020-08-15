@@ -4,9 +4,9 @@ import javax.swing.JFrame;
 public class Game extends JFrame {
 
     /** 初期ウィンドウサイズ（高さ） */
-    public static final int WIN_HEIGHT = 500;
+    public static final int WIN_HEIGHT = 600;
     /** 初期ウィンドウサイズ（幅） */
-    public static final int WIN_WIDTH = 600;
+    public static final int WIN_WIDTH = 800;
 
     private Model model = null;
 
