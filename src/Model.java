@@ -31,7 +31,7 @@ public class Model {
         typedChar = typed;
         ap.move(typedChar);
         view.repaint();
-        int a = 3;
+        int a = 4;
     }
 
     public synchronized void processMousePressed() {
