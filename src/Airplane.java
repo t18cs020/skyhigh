@@ -5,7 +5,6 @@ public class Airplane {
 	private Model model;
 	private Attack atk;
 	private final static int SPEED = 10;
-private int a;
 	
 	public Airplane(Model model) {
 		super();

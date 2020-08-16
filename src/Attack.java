@@ -6,7 +6,6 @@ public class Attack {
 	private final static int width = Game.WIN_WIDTH;
 	private final static int height = Game.WIN_HEIGHT;
 	public final static int SIZE = 40;
-	private int a;
 	
 	public Attack() {
 		super();

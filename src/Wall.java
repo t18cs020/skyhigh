@@ -6,7 +6,6 @@ public class Wall {
 	public final static int HEIGHT = 40;
 	private final static int SPEED = 8;
 	private Model model;
-	private int a;
 	
 	public Wall(int wy, Model model) {
 		super();
