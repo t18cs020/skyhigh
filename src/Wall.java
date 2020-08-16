@@ -4,7 +4,7 @@ public class Wall {
 	private boolean exist;
 	private final static int WIDTH = 40;
 	public final static int HEIGHT = 40;
-	private final static int SPEED = 8;
+	private final static int SPEED = 80;
 	private Model model;
 	
 	public Wall(int wy, Model model) {

@@ -57,7 +57,7 @@ public class View extends JPanel {
         
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         g.setColor(Color.WHITE);
-                g.drawString("wall: " + wall.size() , 100, 200);
+  //              g.drawString("wall: " + wall.size() , 100, 200);
                 
         g.drawImage(imageAp, ap.getApx(), ap.getApy(), this);
         if(atk.isExist()) {
