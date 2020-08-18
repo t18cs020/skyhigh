@@ -15,33 +15,18 @@ public class Attack {
 	}
 	
 	public void isOutOfScreen() {
-		if(atx < 0) {
-			atx = 0;
+		if(atx <= 0 || atx > width || aty < 0 || aty > height)
 			exist = false;
-		}
-		if(atx > width) {
-			atx = width;
-			exist = false;
-		}
-		if(aty < 0) {
-			aty = 0;
-			exist = false;
-		}
-		if(aty > height) {
-			aty = height;
-			exist = false;
-		}
-		
 	}
 	
 	public void shotAttack(int apx, int apy) {
 		exist = true;
-		atx = apx + 1;
+		atx = apx;
 		aty = apy;
 	}
 	
-	public void updateAttack() {
-		atx += 25;
+	public void updateAttack(int Speed) {
+		atx += Speed;
 	}
 	
 	public void reachWall() {
@@ -59,6 +44,5 @@ public class Attack {
 	public boolean isExist() {
 		return exist;
 	}
-	
 	
 }

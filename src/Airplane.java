@@ -4,7 +4,9 @@ public class Airplane {
 	private int apx, apy;
 	private Model model;
 	private Attack atk;
+	private boolean undameged_time;
 	private final static int SPEED = 10;
+	private final static int ATTACK_SPEED = 25;
 	
 	public Airplane(Model model) {
 		super();
@@ -12,9 +14,18 @@ public class Airplane {
 		this.life = 3;
 		this.apx = 100;
 		this.apy = 100;
+		undameged_time = false;
 		atk = new Attack();
 	}
 
+	
+	public void update() {
+		apy += 1;
+		if(atk.isExist())
+			atk.updateAttack(ATTACK_SPEED);
+		isOutOfScreen();
+	}
+	
 	public void isOutOfScreen() {
 		if(apx < 0)apx = 0;
 		if(apx > Game.WIN_WIDTH)apx = Game.WIN_WIDTH;
@@ -23,18 +34,11 @@ public class Airplane {
 		atk.isOutOfScreen();
 	}
 	
-	public void update() {
-		apy += 1;
-		if(atk.isExist())
-			atk.updateAttack();
-		isOutOfScreen();
-	}
-	
 	public void move(String typedChar) {
 		switch(typedChar) {
 		case "w":
 			apy -= SPEED;
-			break;	
+			break;
 		case "s":
 			apy += SPEED;
 			break;
@@ -65,5 +69,23 @@ public class Airplane {
 	public Attack getAttack () {
 		return atk;
 	}
+	
+	public int getLife() {
+		return life;
+	}
+
+	public void damagedAirplane() {
+		life--;
+		undameged_time = true;
+	}
+	
+	public boolean isUndameged_time() {
+		return undameged_time;
+	}
+
+	public void setUndameged_time(boolean undameged_time) {
+		this.undameged_time = undameged_time;
+	}
+
 	
 }
