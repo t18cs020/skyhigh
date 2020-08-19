@@ -5,8 +5,11 @@ public class Airplane {
 	private Model model;
 	private Attack atk;
 	private boolean undameged_time;
+	private boolean ap_through;
 	private final static int SPEED = 10;
 	private final static int ATTACK_SPEED = 25;
+	public static final int WIDTH = 10;
+	public static final int HEIGHT = 10;
 	
 	public Airplane(Model model) {
 		super();
@@ -15,6 +18,7 @@ public class Airplane {
 		this.apx = 100;
 		this.apy = 100;
 		undameged_time = false;
+		ap_through = false;
 		atk = new Attack();
 	}
 
@@ -77,6 +81,7 @@ public class Airplane {
 	public void damagedAirplane() {
 		life--;
 		undameged_time = true;
+		ap_through = true;
 	}
 	
 	public boolean isUndameged_time() {

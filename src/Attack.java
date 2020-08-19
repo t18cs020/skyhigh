@@ -3,6 +3,7 @@ public class Attack {
 
 	private int atx, aty;
 	private boolean exist;
+	private boolean through;
 	private final static int width = Game.WIN_WIDTH;
 	private final static int height = Game.WIN_HEIGHT;
 	public final static int SIZE = 40;
@@ -12,6 +13,7 @@ public class Attack {
 		this.atx = 0;
 		this.aty = 0;
 		this.exist = false;
+		this.through = false;
 	}
 	
 	public void isOutOfScreen() {
@@ -21,6 +23,7 @@ public class Attack {
 	
 	public void shotAttack(int apx, int apy) {
 		exist = true;
+		through = false;
 		atx = apx;
 		aty = apy;
 	}
@@ -29,7 +32,7 @@ public class Attack {
 		atx += Speed;
 	}
 	
-	public void reachWall() {
+	public void reach() {
 		this.exist = false;
 	}
 
@@ -43,6 +46,14 @@ public class Attack {
 
 	public boolean isExist() {
 		return exist;
+	}
+
+	public boolean isThrough() {
+		return through;
+	}
+	
+	public void setThrough(boolean through) {
+		this.through = through;
 	}
 	
 }
