@@ -4,35 +4,42 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 
 public class PlayingState implements State{
+	
 	private Model model;
-    private int undamaged_count;
-	private int undamaged_count_boss;
 	private Airplane ap;
+	private int undamaged_count;
 	private Boss boss;
+	private int undamaged_count_boss;
 	private int time;
 	private View view;
+	private String typedChar;
 	
 	public PlayingState(Model model) {
 		super();
 		this.model = model;
 		ap = model.getAirplane();
 		boss = model.getBoss();
-        undamaged_count = 0;
-        undamaged_count_boss = 0;
-        time = 0;
+        undamaged_count = model.getUndamaged_count();
+        undamaged_count_boss = model.getUndamaged_count_boss();
+        time = model.getTime();
         view = model.getView();
+        typedChar = "";
 	}
+	
 	// タイトル状態におけるキータイプイベント処理
 	public State processKeyTyped(String typed) {
-		if (typed.equals(" ")) {
+		typedChar = typed;
+        model.setTypedChar(typedChar);
+		if (typedChar.equals(" ")) {
 			return new TitleState(model);
 		}
-		ap.move(typed);
+		ap.move(typedChar);
 		return this;
 	}
+
 	// タイトル状態の時間経過イベントを処理するメソッド
 	public State processTimeElapsed(int msec) { 
-        time++;
+        model.setTime(++time);
         if(time % 10 == 0) {
         	model.makeWall();
         }
@@ -125,5 +132,29 @@ public class PlayingState implements State{
 	    g.drawString("LIFE: " + ap.getLife() , 10, 20);
 	    g.drawString("SCORE: " + model.getScore() , 10, 40);
 
+	}
+	public Model getModel() {
+		return model;
+	}
+	public int getUndamaged_count() {
+		return undamaged_count;
+	}
+	public int getUndamaged_count_boss() {
+		return undamaged_count_boss;
+	}
+	public Airplane getAp() {
+		return ap;
+	}
+	public Boss getBoss() {
+		return boss;
+	}
+	public int getTime() {
+		return time;
+	}
+	public View getView() {
+		return view;
+	}
+	public String getTypedChar() {
+		return typedChar;
 	}
 }

@@ -8,9 +8,12 @@ public class Model {
     // Sample instance variables:
     private Airplane ap;
     private LinkedList <Wall> wall;
-    
+    private String typedChar;
     private Boss boss;
-    
+
+	private int undamaged_count;
+    private int undamaged_count_boss;
+    private int time;
     private int score;
 	private int throughCount;//壁を通過したかどうかを確認する
     public final static int QUOTA = 1000;//ボスの登場するスコアのノルマ
@@ -22,6 +25,10 @@ public class Model {
         wall = new LinkedList<Wall>();
         boss = new Boss(this, 0);
         state = new TitleState(this);
+        typedChar = "";
+        time = 0;
+        undamaged_count = 0;
+        undamaged_count_boss = 0;
     }
 
     public synchronized void processTimeElapsed(int msec) {
@@ -161,5 +168,37 @@ public class Model {
 	}
 	
 	public State getState() { return state; }
+	
+    public int getUndamaged_count() {
+		return undamaged_count;
+	}
+
+	public void setUndamaged_count(int undamaged_count) {
+		this.undamaged_count = undamaged_count;
+	}
+
+	public int getUndamaged_count_boss() {
+		return undamaged_count_boss;
+	}
+
+	public void setUndamaged_count_boss(int undamaged_count_boss) {
+		this.undamaged_count_boss = undamaged_count_boss;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public String getTypedChar() {
+		return typedChar;
+	}
+
+	public void setTime(int i) {
+		time = i;
+	}
+
+	public void setTypedChar(String s) {
+		typedChar = s;
+	}
 
 }

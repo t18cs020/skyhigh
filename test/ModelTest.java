@@ -8,6 +8,7 @@ public class ModelTest {
     @Test
     public void モデルの管理する時刻データが時間経過とともに増えるかテスト() {
         Model model = new Model();
+        model.processKeyTyped(" ");//ゲーム開始
         int time = model.getTime();
         model.processTimeElapsed(100);
         assertEquals(time + 1, model.getTime());
@@ -21,14 +22,14 @@ public class ModelTest {
     @Test
     public void モデルがタイプされた文字を保持しているかテスト() {
         Model model = new Model();
-        View view = model.getView();
+        model.processKeyTyped(" ");
         Controller controller = model.getController();
         // View オブジェクトが存在すること
-        assertNotEquals(view, null);
+        assertNotEquals(model.getView(), null);
         // Controler オブジェクトが存在すること
         assertNotEquals(controller, null);
         
-        controller.keyTyped(new KeyEvent(view, 1, 1, 0, KeyEvent.VK_A, 'a'));
+        controller.keyTyped(new KeyEvent(model.getView(), 1, 1, 0, KeyEvent.VK_A, 'a'));
         assertEquals("a", model.getTypedChar());
     }
 
