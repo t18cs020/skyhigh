@@ -1,7 +1,8 @@
 
 public class Airplane {
 	private int life;
-	private int apX, apY;
+	private int apX;
+	private int apY;
 	private boolean exist;
 	private Attack atk;
 	private boolean ap_undamaged_time;
