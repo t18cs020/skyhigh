@@ -1,57 +1,57 @@
 
 public class Airplane {
 	private int life;
-	private int apx, apy;
+	private int apX, apY;
 	private boolean exist;
 	private Attack atk;
-	private boolean undameged_time;
-	private final static int SPEED = 10;
-	private final static int LIFE = 3;
-	private final static int ATTACK_SPEED = 25;
+	private boolean ap_undamaged_time;
+	private static final int SPEED = 10;
+	private static final int LIFE = 3;
+	private static final int ATTACK_SPEED = 25;
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
 	public static final int DEFAULT_X = 100;
 	public static final int DEFAULT_Y = 100;
 	
-	public Airplane(Model model) {
+	public Airplane() {
 		super();
 		this.life = LIFE;
-		this.apx = DEFAULT_X;
-		this.apy = DEFAULT_Y;
+		this.apX = DEFAULT_X;
+		this.apY = DEFAULT_Y;
 		exist = true;
-		undameged_time = false;
+		ap_undamaged_time = false;
 		atk = new Attack();
 	}
 
 	
 	public void update() {
-		apy += 1;
+		apY += 1;
 		if(atk.isExist())
 			atk.updateAttack(ATTACK_SPEED);
 		isOutOfScreen();
 	}
 	
 	public void isOutOfScreen() {
-		if(apx < 0)apx = 0;
-		if(apx > Game.WIN_WIDTH)apx = Game.WIN_WIDTH;
-		if(apy < 0)apy = 0;
-		if(apy > Game.WIN_HEIGHT)apy = Game.WIN_HEIGHT;
+		if(apX < 0)apX = 0;
+		if(apX > Game.WIN_WIDTH)apX = Game.WIN_WIDTH;
+		if(apY < 0)apY = 0;
+		if(apY > Game.WIN_HEIGHT)apY = Game.WIN_HEIGHT;
 		atk.isOutOfScreen();
 	}
 	
 	public void move(String typedChar) {
 		switch(typedChar) {
 		case "w":
-			apy -= SPEED;
+			apY -= SPEED;
 			break;
 		case "s":
-			apy += SPEED;
+			apY += SPEED;
 			break;
 		case "a":
-			apx -= SPEED;
+			apX -= SPEED;
 			break;
 		case "d":
-			apx += SPEED;
+			apX += SPEED;
 			break;
 		}
 		isOutOfScreen();
@@ -59,16 +59,16 @@ public class Airplane {
 	
 	public void shot() {
 		if(!atk.isExist()) {
-			atk.shotAttack(apx, apy);
+			atk.shotAttack(apX, apY);
 		}
 	}
 	
 	public int getApx() {
-		return apx;
+		return apX;
 	}
 
 	public int getApy() {
-		return apy;
+		return apY;
 	}
 	
 	public Attack getAttack () {
@@ -81,7 +81,7 @@ public class Airplane {
 
 	public void damagedAirplane() {
 		life--;
-		undameged_time = true;
+		ap_undamaged_time = true;
 		if(life == 0) {
 			exist = false;
 		}
@@ -89,16 +89,16 @@ public class Airplane {
 	
 	public void reset() {
 		life = LIFE;
-		undameged_time = true;	
+		ap_undamaged_time = true;	
 		exist = true;
 	}
 	
 	public boolean isUndameged_time() {
-		return undameged_time;
+		return ap_undamaged_time;
 	}
 
 	public void setUndameged_time(boolean undameged_time) {
-		this.undameged_time = undameged_time;
+		this.ap_undamaged_time = undameged_time;
 	}
 
 	public boolean isExist() {

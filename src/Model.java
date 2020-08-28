@@ -26,7 +26,7 @@ public class Model {
 	public Model() {
         view = new View(this);
         controller = new Controller(this);
-        ap = new Airplane(this);
+        ap = new Airplane();
         wall = new LinkedList<Wall>();
         boss = new Boss(0);
         state = new TitleState(this);
@@ -259,7 +259,7 @@ public class Model {
 	}
 	
 	public void newGame() {
-        ap = new Airplane(this);
+        ap = new Airplane();
         wall = new LinkedList<Wall>();
         boss = new Boss(0);
         typedChar = "";
