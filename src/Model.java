@@ -18,7 +18,7 @@ public class Model {
     private int time;
     private int score;
     private int throughCount;//壁を通過したかどうかを確認する
-    public final static int[] QUOTA = {1, 2, 2};//ボスの登場するスコアのノルマ;//ボスの登場するスコアのノルマ
+    private static final int[] QUOTA = {1, 2, 2};//ボスの登場するスコアのノルマ;//ボスの登場するスコアのノルマ
     private int wallCount;
     private boolean hit;
     private boolean cleared;
@@ -303,5 +303,9 @@ public class Model {
 
 	public void setCleared(boolean cleared) {
 		this.cleared = cleared;
+	}
+	
+	public int getQUOTA(int i) {
+		return QUOTA[i];
 	}
 }
