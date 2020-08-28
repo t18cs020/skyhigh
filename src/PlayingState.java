@@ -101,60 +101,13 @@ public class PlayingState implements State {
 	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 	    g.setColor(Color.WHITE);
 	    
-	    //背景
-	    switch (level) {
-	    case 0:
-	    	g.drawImage(view.imageBack, 0, 0, view);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
-	    			g.drawImage(view.imageDBoss, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		else {
-	    			g.drawImage(view.imageBoss, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
-	    	break;
-	    case 1:
-	    	g.drawImage(view.imageBack2, 0, 0, view);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
-	    			g.drawImage(view.imageDBoss2, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		else {
-	    			g.drawImage(view.imageBoss2, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
-	    	break;
-	    case 2:
-	    	g.drawImage(view.imageBack3, 0, 0, view);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
-	    			g.drawImage(view.imageDBoss3, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		else {
-	    			g.drawImage(view.imageBoss3, boss.getBx(), boss.getBy(), view);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
-	    	break;
-	    }
+		//ゲーム画面の描画
+		view.drawGame(g, level, boss);
 	    //プレイヤー
 	    view.drawPlayer(g, ap);
-		if(bossatk.isExist()) {
-			g.drawImage(view.imageBAtk, bossatk.getAtx(), bossatk.getAty(), view);
-		}
+		
         //壁
-		for(int i = 0; i < wall.size() ; i++) {
-			Wall w = wall.get(i);
-			if(w.getExist()) {
-				g.drawImage(view.imageWl, w.getWx(), w.getWy(), view);
-			}
-		}
+		view.drawWall(g, wall);
 
 	    g.drawString("LIFE: " + ap.getLife() , 10, 20);
 	    g.drawString("SCORE: " + model.getScore() , 10, 40);

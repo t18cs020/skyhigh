@@ -15,10 +15,10 @@ public class View extends JPanel {
 
     private Model model;
     // Sample instance variables:
-    public Image imageAp, imageDAp, imageAtk, imageWl, imageBoss, imageBack;
-    public Image imageDBoss, imageBAtk, imageBack2, imageBack3, imageBoss2, imageBoss3, imageBossComing;
-    public Image bossComing, imageDBoss2 ,imageDBoss3;
-    public AudioClip sound;
+    private Image imageAp, imageDAp, imageAtk, imageWl, imageBoss, imageBack;
+    private Image imageDBoss, imageBAtk, imageBack2, imageBack3, imageBoss2, imageBoss3, imageBossComing;
+    private Image bossComing, imageDBoss2 ,imageDBoss3;
+    private AudioClip sound;
     private Dimension size;
     public View(Model model) {
         this.model = model;
@@ -71,6 +71,62 @@ public class View extends JPanel {
         }
     }
     
+    public void drawGame(Graphics g,int level, Boss boss) {
+	    switch (level) {
+	    case 0:
+	    	g.drawImage(imageBack, 0, 0, this);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(imageDBoss, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		else {
+	    			g.drawImage(imageBoss, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    case 1:
+	    	g.drawImage(imageBack2, 0, 0, this);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(imageDBoss2, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		else {
+	    			g.drawImage(imageBoss2, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    case 2:
+	    	g.drawImage(imageBack3, 0, 0, this);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(imageDBoss3, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		else {
+	    			g.drawImage(imageBoss3, boss.getBx(), boss.getBy(), this);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    }
+	    Attack bossatk = boss.getAttack();
+		if(bossatk.isExist()) {
+			g.drawImage(imageBAtk, bossatk.getAtx(), bossatk.getAty(), this);
+		}
+    }
+    
+    public void drawWall(Graphics g, LinkedList <Wall> wall) {
+		for(int i = 0; i < wall.size() ; i++) {
+			Wall w = wall.get(i);
+			if(w.getExist()) {
+				g.drawImage(imageWl, w.getWx(), w.getWy(), this);
+			}
+		}
+    }
     /**
      * 画面を黒色でクリア
      * @param g  描画用のグラフィックスオブジェクト
@@ -88,5 +144,13 @@ public class View extends JPanel {
 	        sound.play(); // 再生する
         }
     }
-
+    public Image getImageBack() {
+    	return imageBack;
+    }
+    public Image getImageAp() {
+    	return imageAp;
+    }
+    public Image getBossComing() {
+    	return bossComing;
+    }
 }

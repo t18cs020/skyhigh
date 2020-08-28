@@ -37,7 +37,7 @@ public class BossState implements State {
 	@Override
 	public void paintComponent(Graphics g) {
         view.clear(g);
-		g.drawImage(view.bossComing, 0 , 0, view);
+		g.drawImage(view.getBossComing(), 0 , 0, view);
 	}
 
 }

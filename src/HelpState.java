@@ -32,7 +32,7 @@ public class HelpState implements State {
 	@Override
 	public void paintComponent(Graphics g) {
 	    //背景
-	    g.drawImage(view.imageBack, 0, 0, view);
+	    g.drawImage(view.getImageBack(), 0, 0, view);
 	    //本文
 	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 	    g.setColor(Color.BLACK);

@@ -51,7 +51,7 @@ public class TitleState implements State{
 		// タイトル状態を描画するメソッド
 		public void paintComponent(Graphics g) {
 		    //背景
-		    g.drawImage(view.imageBack, 0, 0, view);
+		    g.drawImage(view.getImageBack(), 0, 0, view);
 		    //タイトル
 		    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
 		    g.setColor(Color.BLACK);
@@ -62,7 +62,7 @@ public class TitleState implements State{
 		    g.drawString("ランキング", 330, 400);
 		    g.drawString("ゲーム終了", 330, 450);
 		    g.drawString("(Enterキーで決定)", 330, 500);
-		    g.drawImage(view.imageAp, 280, 280 + 50*cursor , view);
+		    g.drawImage(view.getImageAp(), 280, 280 + 50*cursor , view);
 		    
 		}
 }
