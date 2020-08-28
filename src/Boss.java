@@ -2,20 +2,18 @@
 public class Boss {
 	private int life;
 	private int bx, by;
-	private Model model;
 	private Attack atk;
 	private boolean bossExist;
 	private boolean undameged_time;
 	private boolean boss_through;
 	private final static int SPEED = 10;
 	private final static int ATTACK_SPEED = -30;
-	final static int BOSS1_SIZE = 30;
-	final static int[] BOSS_LIFE = {7, 10,15};
+	final static int[] BOSS_SIZE = {30, 60, 60};
+	final static int[] BOSS_LIFE = {1, 1,1};
 	private int move_boss;
 	
-	public Boss(Model model, int i){
+	public Boss(int i){
 		super();
-		this.model = model;
 		this.bx = 600;
 		this.by = 200;
 		life = BOSS_LIFE[i];
@@ -43,6 +41,19 @@ public class Boss {
 		if(!atk.isExist()) {
 			atk.shotAttack(bx, by);
 		}
+	}
+	
+	public Boss reset(int i) {
+		this.bx = 600;
+		this.by = 200;
+		life = BOSS_LIFE[i];
+		bossExist = false;
+		undameged_time = false;
+		boss_through = false;
+		atk = new Attack();
+		move_boss = 0;
+		
+		return this;
 	}
 
 	public boolean isBossExist() {

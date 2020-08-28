@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-public class PlayingState implements State {
+public class Level2State implements State {
 
 	private Model model;
 	private Airplane ap;
@@ -12,7 +12,7 @@ public class PlayingState implements State {
 	private View view;
 	private String typedChar;
 	
-	public PlayingState(Model model) {
+	public Level2State(Model model) {
 		super();
 		this.model = model;
 		ap = model.getAirplane();
@@ -54,7 +54,7 @@ public class PlayingState implements State {
        model.damaged_ap();
     	model.damaged_boss();
     	
-       model.update(0);
+       model.update(1);
        if(model.isHit()) {
 			model.setOldState(this);
     	   return new TypingState(model);
@@ -64,15 +64,15 @@ public class PlayingState implements State {
 			model.setOldState(this);
     	   return new ResultState(model);
        }
-       //ボスのライフが0になったときlevel2へ
+       //ボスのライフが0になったときlevel3へ
        if(boss.getLife() == 0) {
-    	   model.reset(1);
-    	   model.setViewState(1);
-    	   return new Level2State(model);
+    	   model.reset(2);
+    	   model.setViewState(2);
+    	   return new Level3State(model);
        }
        
        //ボスがいないかつ一定スコアに達したとき,ボスを登場させる
-    	if(model.getWallCount() >= Model.QUOTA  && (!boss.isBossExist())){
+    	if(model.getWallCount() >= Model.QUOTA2  && (!boss.isBossExist())){
     		boss.setBossExist(true);
     	}
     	
@@ -93,21 +93,20 @@ public class PlayingState implements State {
         LinkedList <Wall> wall = model.getWall();
         Boss boss = model.getBoss();
         Attack bossatk = boss.getAttack();//ボスの攻撃
-
+		
 	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 	    g.setColor(Color.WHITE);
-	    
 	    //背景
-	    g.drawImage(view.imageBack, 0, 0, view);
+	    g.drawImage(view.imageBack2, 0, 0, view);
 	    //プレイヤー
 	    view.drawPlayer(g, ap);
 		//ボス,攻撃
 		if(boss.isBossExist()) {
 	        if(boss.isUndameged_time()) {//ボスの無敵時間
-	        	g.drawImage(view.imageDBoss, boss.getBx(), boss.getBy(), view);
+	        	g.drawImage(view.imageDBoss2, boss.getBx(), boss.getBy(), view);
 	        }
 	        else {
-	        	g.drawImage(view.imageBoss, boss.getBx(), boss.getBy(), view);
+	        	g.drawImage(view.imageBoss2, boss.getBx(), boss.getBy(), view);
 	        }
 	        if(bossatk.isExist()) {
 	        	g.drawImage(view.imageBAtk, bossatk.getAtx(), bossatk.getAty(), view);

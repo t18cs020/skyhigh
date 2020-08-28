@@ -5,7 +5,7 @@ public class Wall {
 	private boolean through;
 	private final static int WIDTH = 40;
 	public final static int HEIGHT = 40;
-	private final static int SPEED = 12;
+	private final static int SPEED = 15;
 	private Model model;
 	
 	public Wall(int wy, Model model) {

@@ -2,23 +2,24 @@
 public class Airplane {
 	private int life;
 	private int apx, apy;
-	private Model model;
+	private boolean exist;
 	private Attack atk;
 	private boolean undameged_time;
-	private boolean ap_through;
 	private final static int SPEED = 10;
+	private final static int LIFE = 3;
 	private final static int ATTACK_SPEED = 25;
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
+	public static final int DEFAULT_X = 100;
+	public static final int DEFAULT_Y = 100;
 	
 	public Airplane(Model model) {
 		super();
-		this.model = model;
-		this.life = 3;
-		this.apx = 100;
-		this.apy = 100;
+		this.life = LIFE;
+		this.apx = DEFAULT_X;
+		this.apy = DEFAULT_Y;
+		exist = true;
 		undameged_time = false;
-		ap_through = false;
 		atk = new Attack();
 	}
 
@@ -81,7 +82,15 @@ public class Airplane {
 	public void damagedAirplane() {
 		life--;
 		undameged_time = true;
-		ap_through = true;
+		if(life == 0) {
+			exist = false;
+		}
+	}
+	
+	public void reset() {
+		life = LIFE;
+		undameged_time = true;	
+		exist = true;
 	}
 	
 	public boolean isUndameged_time() {
@@ -92,5 +101,8 @@ public class Airplane {
 		this.undameged_time = undameged_time;
 	}
 
-	
+	public boolean isExist() {
+		return exist;
+	}
+
 }

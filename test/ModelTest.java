@@ -32,5 +32,30 @@ public class ModelTest {
         controller.keyTyped(new KeyEvent(model.getView(), 1, 1, 0, KeyEvent.VK_A, 'a'));
         assertEquals("a", model.getTypedChar());
     }
+    
+    @Test
+    public void 相手の攻撃がプレイヤーに当たったことを判別する() {
+        Model model = new Model();
+        Airplane ap = model.getAirplane();
+        model.processKeyTyped(" ");
+        Attack boss_atk = new Attack();
+        boss_atk.shotAttack(Airplane.DEFAULT_X, Airplane.DEFAULT_Y);
+        model.hitAp(boss_atk);
+        assertEquals(2, ap.getLife());
+        assertEquals(true, ap.isUndameged_time());
+        assertEquals(false, boss_atk.isExist());
+        assertEquals(true, boss_atk.isThrough());
+    }
+    
+    @Test
+    public void hitWallのテスト() {
+    	Model model = new Model();
+    	Wall wall = new Wall(100, model);
+    	Attack atk = new Attack();
+    	atk.shotAttack(799, 100);
+    	assertEquals(false, model.hitWall(wall, atk));
+    	atk.updateAttack(1);
+    	assertEquals(true, model.hitWall(wall, atk));
+    }
 
 }

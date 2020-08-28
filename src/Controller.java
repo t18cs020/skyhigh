@@ -35,7 +35,27 @@ public class Controller implements ActionListener, KeyListener, MouseListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // do nothing
+        switch(e.getKeyCode()) {
+        case KeyEvent.VK_ENTER:
+            model.processKeyTyped("ENTER");
+            break;
+        case KeyEvent.VK_UP:
+            model.processKeyTyped("UP");
+            break;
+        case KeyEvent.VK_DOWN:
+            model.processKeyTyped("DOWN");
+            break;
+        case KeyEvent.VK_LEFT:
+            model.processKeyTyped("LEFT");
+            break;
+        case KeyEvent.VK_RIGHT:
+            model.processKeyTyped("RIGHT");
+            break;
+        case KeyEvent.VK_ESCAPE:
+            model.processKeyTyped("ESC");
+            break;
+
+        }
     }
 
     @Override
