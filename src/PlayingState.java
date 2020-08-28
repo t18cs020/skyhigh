@@ -11,6 +11,7 @@ public class PlayingState implements State {
 	private int time;
 	private View view;
 	private String typedChar;
+	private int level;
 	
 	public PlayingState(Model model) {
 		super();
@@ -20,6 +21,7 @@ public class PlayingState implements State {
 		time = model.getTime();
 		view = model.getView();
 		typedChar = "";
+		level = 0;
 	}
 	
 	// タイトル状態におけるキータイプイベント処理
@@ -54,7 +56,7 @@ public class PlayingState implements State {
        model.damaged_ap();
     	model.damaged_boss();
     	
-       model.update(0);
+       model.update(level);
        if(model.isHit()) {
 			model.setOldState(this);
     	   return new TypingState(model);
@@ -64,15 +66,18 @@ public class PlayingState implements State {
 			model.setOldState(this);
     	   return new ResultState(model);
        }
-       //ボスのライフが0になったときlevel2へ
+       //ボスのライフが0になったときレベルアップ
        if(boss.getLife() == 0) {
-    	   model.reset(1);
-    	   model.setViewState(1);
-    	   return new Level2State(model);
+    	   model.reset(level++);
+    	   model.setViewState(level);
+    	   if(level == 3) {
+    		   model.setCleared(true);
+    		   return new ResultState(model);
+    	   }
        }
        
        //ボスがいないかつ一定スコアに達したとき,ボスを登場させる
-    	if(model.getWallCount() >= Model.QUOTA  && (!boss.isBossExist())){
+    	if(model.getWallCount() >= Model.QUOTA[level]  && (!boss.isBossExist())){
     		boss.setBossExist(true);
     	}
     	
@@ -98,21 +103,51 @@ public class PlayingState implements State {
 	    g.setColor(Color.WHITE);
 	    
 	    //背景
-	    g.drawImage(view.imageBack, 0, 0, view);
+	    switch (level) {
+	    case 0:
+	    	g.drawImage(view.imageBack, 0, 0, view);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(view.imageDBoss, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		else {
+	    			g.drawImage(view.imageBoss, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    case 1:
+	    	g.drawImage(view.imageBack2, 0, 0, view);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(view.imageDBoss2, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		else {
+	    			g.drawImage(view.imageBoss2, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    case 2:
+	    	g.drawImage(view.imageBack3, 0, 0, view);
+	    	//ボス,攻撃
+	    	if(boss.isBossExist()) {
+	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    			g.drawImage(view.imageDBoss3, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		else {
+	    			g.drawImage(view.imageBoss3, boss.getBx(), boss.getBy(), view);
+	    		}
+	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+	    	}
+	    	break;
+	    }
 	    //プレイヤー
 	    view.drawPlayer(g, ap);
-		//ボス,攻撃
-		if(boss.isBossExist()) {
-	        if(boss.isUndameged_time()) {//ボスの無敵時間
-	        	g.drawImage(view.imageDBoss, boss.getBx(), boss.getBy(), view);
-	        }
-	        else {
-	        	g.drawImage(view.imageBoss, boss.getBx(), boss.getBy(), view);
-	        }
-	        if(bossatk.isExist()) {
-	        	g.drawImage(view.imageBAtk, bossatk.getAtx(), bossatk.getAty(), view);
-	        }
-	        g.drawString("LIFE: " + boss.getLife() , 400, 20);
+		if(bossatk.isExist()) {
+			g.drawImage(view.imageBAtk, bossatk.getAtx(), bossatk.getAty(), view);
 		}
         //壁
 		for(int i = 0; i < wall.size() ; i++) {
@@ -146,6 +181,8 @@ public class PlayingState implements State {
 	public String getTypedChar() {
 		return typedChar;
 	}
-
+	public int getLevel() {
+		return level;
+	}
 }
 

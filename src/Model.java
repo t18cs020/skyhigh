@@ -18,9 +18,7 @@ public class Model {
     private int time;
     private int score;
     private int throughCount;//壁を通過したかどうかを確認する
-    public final static int QUOTA = 1;//ボスの登場するスコアのノルマ
-    public final static int QUOTA2 = 2;//ボスの登場するスコアのノルマ
-    public final static int QUOTA3 = 2;//ボスの登場するスコアのノルマ
+    public final static int[] QUOTA = {1, 2, 2};//ボスの登場するスコアのノルマ;//ボスの登場するスコアのノルマ
     private int wallCount;
     private boolean hit;
     private boolean cleared;

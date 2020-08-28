@@ -39,16 +39,20 @@ public class ResultState implements State {
 
 	@Override
 	public void paintComponent(Graphics g) {
-	    g.setColor(Color.WHITE);
-        g.fillRect(101, 101, 598, 398);
-	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-	    g.setColor(Color.BLACK);
-        g.drawRect(100, 100, 600, 400);
-	    g.drawString("ゲームオーバー" ,150 , 150);
-	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-	    g.drawString("Escキーでタイトルに戻る" , 200, 450);
-	    if(!model.isCleared())
-		    g.drawString("Enterキーでゲームを再開" , 200, 400);
+		g.setColor(Color.WHITE);
+		g.fillRect(101, 101, 598, 398);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		g.setColor(Color.BLACK);
+		g.drawRect(100, 100, 600, 400);
+
+		if(model.isCleared()) {
+			g.drawString("ゲームクリア！" ,200 , 150);
+		}
+		else {
+			g.drawString("ゲームオーバー" ,200 , 150);
+			g.drawString("Enterキーでゲームを再開" , 200, 400);
+		}
+		g.drawString("Escキーでタイトルに戻る" , 200, 450);
 	}
 
 }
