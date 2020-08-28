@@ -1,11 +1,12 @@
 
 public class Attack {
 
-	private int atx, aty;
+	private int atx;
+	private int aty;
 	private boolean exist;
 	private boolean through;
-	private final static int width = Game.WIN_WIDTH;
-	private final static int height = Game.WIN_HEIGHT;
+	private static final int WIDTH = Game.WIN_WIDTH;
+	private static final int HEIGHT = Game.WIN_HEIGHT;
 	public final static int SIZE = 40;
 	
 	public Attack() {
@@ -17,7 +18,7 @@ public class Attack {
 	}
 	
 	public void isOutOfScreen() {
-		if(atx <= 0 || atx > width || aty < 0 || aty > height)
+		if(atx <= 0 || atx > WIDTH || aty < 0 || aty > HEIGHT)
 			exist = false;
 	}
 	
@@ -28,8 +29,8 @@ public class Attack {
 		aty = apy;
 	}
 	
-	public void updateAttack(int Speed) {
-		atx += Speed;
+	public void updateAttack(int speed) {
+		atx += speed;
 	}
 	
 	public void reach() {

@@ -100,8 +100,8 @@ public class Airplane {
 		return apUndamagedTime;
 	}
 
-	public void setApUndamegedTime(boolean undameged_time) {
-		this.apUndamagedTime = undameged_time;
+	public void setApUndamegedTime(boolean undamegedTime) {
+		this.apUndamagedTime = undamegedTime;
 	}
 
 	public boolean isExist() {
