@@ -80,7 +80,6 @@ public class PlayingState implements State {
     	if(model.getWallCount() >= Model.QUOTA[level]  && (!boss.isBossExist())){
     		boss.setBossExist(true);
     	}
-    	
 		return this; 
 	}
 	

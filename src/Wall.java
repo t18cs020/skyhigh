@@ -3,17 +3,14 @@ public class Wall {
 	private int wx,wy;
 	private boolean exist;
 	private boolean through;
-	private final static int WIDTH = 40;
 	public final static int HEIGHT = 40;
 	private final static int SPEED = 15;
-	private Model model;
 	
 	public Wall(int wy, Model model) {
 		super();
 		this.wx = Game.WIN_WIDTH;
 		this.wy = wy;
 		this.exist = true;
-		this.model = model;
 		this.through = false;
 	}
 	
