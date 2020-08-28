@@ -42,7 +42,7 @@ public class ModelTest {
         boss_atk.shotAttack(Airplane.DEFAULT_X, Airplane.DEFAULT_Y);
         model.hitAp(boss_atk);
         assertEquals(2, ap.getLife());
-        assertEquals(true, ap.isUndameged_time());
+        assertEquals(true, ap.isApUndamegedTime());
         assertEquals(false, boss_atk.isExist());
         assertEquals(true, boss_atk.isThrough());
     }

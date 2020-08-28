@@ -5,9 +5,9 @@ public class Airplane {
 	private int apY;
 	private boolean exist;
 	private Attack atk;
-	private boolean ap_undamaged_time;
+	private boolean apUndamagedTime;
 	private static final int SPEED = 10;
-	private static final int LIFE = 3;
+	private static final int AP_LIFE = 3;
 	private static final int ATTACK_SPEED = 25;
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
@@ -16,11 +16,11 @@ public class Airplane {
 	
 	public Airplane() {
 		super();
-		this.life = LIFE;
+		this.life = AP_LIFE;
 		this.apX = DEFAULT_X;
 		this.apY = DEFAULT_Y;
 		exist = true;
-		ap_undamaged_time = false;
+		apUndamagedTime = false;
 		atk = new Attack();
 	}
 
@@ -53,6 +53,8 @@ public class Airplane {
 			break;
 		case "d":
 			apX += SPEED;
+			break;	
+		default:
 			break;
 		}
 		isOutOfScreen();
@@ -82,24 +84,24 @@ public class Airplane {
 
 	public void damagedAirplane() {
 		life--;
-		ap_undamaged_time = true;
+		apUndamagedTime = true;
 		if(life == 0) {
 			exist = false;
 		}
 	}
 	
 	public void reset() {
-		life = LIFE;
-		ap_undamaged_time = true;	
+		life = AP_LIFE;
+		apUndamagedTime = true;	
 		exist = true;
 	}
 	
-	public boolean isUndameged_time() {
-		return ap_undamaged_time;
+	public boolean isApUndamegedTime() {
+		return apUndamagedTime;
 	}
 
-	public void setUndameged_time(boolean undameged_time) {
-		this.ap_undamaged_time = undameged_time;
+	public void setApUndamegedTime(boolean undameged_time) {
+		this.apUndamagedTime = undameged_time;
 	}
 
 	public boolean isExist() {

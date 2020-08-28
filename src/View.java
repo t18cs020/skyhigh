@@ -58,7 +58,7 @@ public class View extends JPanel {
     }
 
     public void drawPlayer(Graphics g, Airplane ap) {
-        if(ap.isUndameged_time()) {
+        if(ap.isApUndamegedTime()) {
         	g.drawImage(imageDAp, ap.getApx(), ap.getApy(), this);
         }
         else {

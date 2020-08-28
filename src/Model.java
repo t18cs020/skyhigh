@@ -105,7 +105,7 @@ public class Model {
     		}
     		//プレイヤーアイコンと壁の衝突
     		if(ap.getApx() + (Attack.SIZE/2) >= w.getWx()){
-    			if((!ap.isUndameged_time()) && equalY(ap.getApy(), w.getWy(),Airplane.HEIGHT, Wall.HEIGHT) 
+    			if((!ap.isApUndamegedTime()) && equalY(ap.getApy(), w.getWy(),Airplane.HEIGHT, Wall.HEIGHT) 
     					&& !w.isThrough()) {
     				ap.damagedAirplane();
     			}
@@ -129,7 +129,7 @@ public class Model {
     public void hitAp(Attack bossAtk) {
     	if(bossAtk.getAtx() <= ap.getApx()) {
     		if(equalY(bossAtk.getAty(), ap.getApy(), Attack.SIZE /2 ,Airplane.HEIGHT)
-	        		&& (!ap.isUndameged_time())
+	        		&& (!ap.isApUndamegedTime())
 	        		&& !bossAtk.isThrough()) {//x,y座標の関係,無敵時間,弾が過ぎてるかどうか
 	        	ap.damagedAirplane();
 				bossAtk.reach();
@@ -168,11 +168,11 @@ public class Model {
 	}
 
 	public void damaged_ap() {
-    	if(ap.isUndameged_time()) {
+    	if(ap.isApUndamegedTime()) {
     		undamaged_count++;
     		if(undamaged_count > 20) {
     			undamaged_count = 0;
-    			ap.setUndameged_time(false);
+    			ap.setApUndamegedTime(false);
     		}
     	}
 	}
