@@ -19,7 +19,7 @@ public class HelpState implements State {
 
 	@Override
 	public State processKeyTyped(String typed) {
-		if(typed == "ESC")
+		if(typed.equals("ESC"))
 			return new TitleState(model);
 		return this;
 	}
