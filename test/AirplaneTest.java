@@ -6,8 +6,7 @@ public class AirplaneTest {
 
 	@Test
 	public void isOutOfScreenは画面外に出たら画面内に戻す() {
-		Model model = new Model();
-		Airplane ap = new Airplane(model);
+		Airplane ap = new Airplane();
 		for(int i = 0; i < 50; i++) {//左
 			ap.move("a");
 		}
