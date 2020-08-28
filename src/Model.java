@@ -23,7 +23,7 @@ public class Model {
     private boolean hit;
     private boolean cleared;
 
-	private Model() {
+	public Model() {
         view = new View(this);
         controller = new Controller(this);
         ap = new Airplane(this);
