@@ -77,7 +77,7 @@ public class PlayingState implements State {
        }
        
        //ボスがいないかつ一定スコアに達したとき,ボスを登場させる
-    	if( level < 3 && model.getWallCount() >= Model.QUOTA[level]  && (!boss.isBossExist())){
+    	if(model.getWallCount() >= Model.QUOTA[level]  && (!boss.isBossExist())){
     		boss.setBossExist(true);
     	}
     	
