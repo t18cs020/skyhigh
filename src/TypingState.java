@@ -8,7 +8,7 @@ public class TypingState implements State {
 	private int count;
 	private boolean isTyped;
 	private String[] data = {"apple", "gomi", "kasu", "unko", "shine"};
-	public final static String BS = "\b";
+	public static final String BS = "\b";
 	
 	public TypingState(Model model) {
 		super();

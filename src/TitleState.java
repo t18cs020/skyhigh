@@ -74,7 +74,7 @@ public class TitleState implements State{
 				}
 			}
 			else {
-				view.drawTitle(g, cursor, help);
+				view.drawTitle(g, cursor);
 			}
 		}
 }

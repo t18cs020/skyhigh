@@ -86,7 +86,7 @@ public class View extends JPanel {
     	Image idb;
     	Image back;
 	    switch (level) {
-	    case 0:
+	    default:
 	    	//レベル1のとき
 	    	ib = imageBoss;
 	    	idb = imageDBoss;
@@ -103,11 +103,6 @@ public class View extends JPanel {
 	    	ib = imageBoss3;
 	    	idb = imageDBoss3;
 	    	back = imageBack3;
-	    	break;
-	    default:
-	    	ib = imageBoss;
-	    	idb = imageDBoss;
-	    	back = imageBack;
 	    	break;
 	    }
     	g.drawImage(ib, 0, 0, this);
@@ -130,7 +125,6 @@ public class View extends JPanel {
 		}
     }
     //壁の描画
-    private int i = 0;
     public void drawWall(Graphics g, List<Wall> wall) {
 		for(int i = 0; i < wall.size() ; i++) {
 			Wall w = wall.get(i);
@@ -176,7 +170,7 @@ public class View extends JPanel {
 	    g.drawString(s , 110, 350);
 	}
 
-	public void drawTitle(Graphics g,int cursor,  int help) {
+	public void drawTitle(Graphics g,int cursor) {
 		
 		clear(g);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
