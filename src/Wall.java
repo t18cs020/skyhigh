@@ -1,12 +1,13 @@
 
 public class Wall {
-	private int wx,wy;
+	private int wx;
+	private int wy;
 	private boolean exist;
 	private boolean through;
-	public final static int HEIGHT = 40;
-	private final static int SPEED = 15;
+	public static final int HEIGHT = 40;
+	private static final int SPEED = 15;
 	
-	public Wall(int wy, Model model) {
+	public Wall(int wy) {
 		super();
 		this.wx = Game.WIN_WIDTH;
 		this.wy = wy;

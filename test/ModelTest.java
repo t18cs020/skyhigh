@@ -50,7 +50,7 @@ public class ModelTest {
     @Test
     public void hitWallのテスト() {
     	Model model = new Model();
-    	Wall wall = new Wall(100, model);
+    	Wall wall = new Wall(100);
     	Attack atk = new Attack();
     	atk.shotAttack(799, 100);
     	assertEquals(false, model.hitWall(wall, atk));

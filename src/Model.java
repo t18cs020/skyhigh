@@ -68,7 +68,7 @@ public class Model {
     	if(wall.isEmpty()) {
     		int i = 0;
 			for(; i * Wall.HEIGHT < Game.WIN_HEIGHT ; i++) {
-				wall.add(new Wall(i * Wall.HEIGHT , this));
+				wall.add(new Wall(i * Wall.HEIGHT));
 			}
 			RandNumGenerator r = RandNumGenerator.getInstance();
 			int j = r.nextInt(i-1);

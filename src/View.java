@@ -86,12 +86,6 @@ public class View extends JPanel {
     	Image idb;
     	Image back;
 	    switch (level) {
-	    default:
-	    	//レベル1のとき
-	    	ib = imageBoss;
-	    	idb = imageDBoss;
-	    	back = imageBack;
-	    	break;
 	    case 1:
 	    	//レベル2のとき
 	    	ib = imageBoss2;
@@ -103,6 +97,12 @@ public class View extends JPanel {
 	    	ib = imageBoss3;
 	    	idb = imageDBoss3;
 	    	back = imageBack3;
+	    	break;
+	    default:
+	    	//レベル1のとき
+	    	ib = imageBoss;
+	    	idb = imageDBoss;
+	    	back = imageBack;
 	    	break;
 	    }
     	g.drawImage(ib, 0, 0, this);
