@@ -28,6 +28,10 @@ public class ResultState implements State {
 				model.getAirplane().reset();
 				return model.getOldState();
 			}
+			break;
+			
+		default :
+			break;
 		}
 		return this;
 	}
