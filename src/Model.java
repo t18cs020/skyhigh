@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.List;
 
 public class Model {
 
@@ -9,12 +10,12 @@ public class Model {
     private int viewState;
     // Sample instance variables:
     private Airplane ap;
-    private LinkedList <Wall> wall;
+    private List<Wall> wall;
     private String typedChar;
     private Boss boss;
 
-    private int undamaged_count;
-    private int undamaged_count_boss;
+    private int undamagedCount;
+    private int undamagedCountBoss;
     private int time;
     private int score;
     private int throughCount;//壁を通過したかどうかを確認する
@@ -36,8 +37,8 @@ public class Model {
         time = 0;
         score = 0;
         throughCount = 0;
-        undamaged_count = 0;
-        undamaged_count_boss = 0;
+        undamagedCount = 0;
+        undamagedCountBoss = 0;
         wallCount = 0;
         hit = false;
         cleared = false;
@@ -94,13 +95,12 @@ public class Model {
     		hitAp(bossAtk);
 
     	//壁の処理
-    	for(int i = 0; i < wall.size() ; i++) {
+    	for(int i = wall.size() -1; i >= 0 ; i--) {
     		Wall w = wall.get(i);
     		w.updateWall();
     		//壁が範囲外に出たら消す
     		if(!w.getExist()) {
     			wall.remove(i);
-    			i--;
     			continue;
     		}
     		//プレイヤーアイコンと壁の衝突
@@ -121,7 +121,6 @@ public class Model {
     			hit = true;
     			wall.remove(i);
     			atk.reach();
-    			i--;
     		}
     	}
     }
@@ -151,37 +150,33 @@ public class Model {
 	}
     
     public boolean hitWall(Wall w, Attack atk) {
-		if(equalY(atk.getAty(), w.getWy(),Attack.SIZE, Wall.HEIGHT) &&ap.getApx() <= w.getWx()) {
-			if(!w.hitWall(atk.getAtx()) ) {
+		if(equalY(atk.getAty(), w.getWy(),Attack.SIZE, Wall.HEIGHT) &&ap.getApx() <= w.getWx() && !w.hitWall(atk.getAtx()) ) {
 				return true;
-			}
 		}
 		return false;
     }
 
 	private boolean equalY(int y, int wy ,int distance, int height) {
-    	if((y + (distance/2) >= wy && y + (distance/2) < wy + height)
+    	return ((y + (distance/2) >= wy && y + (distance/2) < wy + height)
     			|| (y >= wy && y < wy + height)
-    			|| (y + distance >= wy && y + distance < wy + height))
-    		return true;
-		return false;
+    			|| (y + distance >= wy && y + distance < wy + height));
 	}
 
-	public void damaged_ap() {
+	public void damagedAp() {
     	if(ap.isApUndamegedTime()) {
-    		undamaged_count++;
-    		if(undamaged_count > 20) {
-    			undamaged_count = 0;
+    		undamagedCount++;
+    		if(undamagedCount > 20) {
+    			undamagedCount = 0;
     			ap.setApUndamegedTime(false);
     		}
     	}
 	}
 	
-	public void damaged_boss() {
+	public void damagedBoss() {
     	if(boss.isUndamegedTime()) {
-    		undamaged_count_boss++;
-    		if(undamaged_count_boss > 20) {
-    			undamaged_count_boss = 0;
+    		undamagedCountBoss++;
+    		if(undamagedCountBoss > 20) {
+    			undamagedCountBoss = 0;
     			boss.setUndamegedTime(false);
     		}
     	}
@@ -203,7 +198,7 @@ public class Model {
     	return ap;
     }
     
-    public LinkedList<Wall> getWall() {
+    public List<Wall> getWall() {
 		return wall;
 	}
 
@@ -213,20 +208,20 @@ public class Model {
 	
 	public State getState() { return state; }
 	
-    public int getUndamaged_count() {
-		return undamaged_count;
+    public int getUndamagedCount() {
+		return undamagedCount;
 	}
 
-	public void setUndamaged_count(int undamaged_count) {
-		this.undamaged_count = undamaged_count;
+	public void setUndamagedCount(int undamagedCount) {
+		this.undamagedCount = undamagedCount;
 	}
 
-	public int getUndamaged_count_boss() {
-		return undamaged_count_boss;
+	public int getUndamagedCountBoss() {
+		return undamagedCountBoss;
 	}
 
-	public void setUndamaged_count_boss(int undamaged_count_boss) {
-		this.undamaged_count_boss = undamaged_count_boss;
+	public void setUndamagedCountBoss(int undamagedCountBoss) {
+		this.undamagedCountBoss = undamagedCountBoss;
 	}
 
 	public int getTime() {
@@ -266,8 +261,8 @@ public class Model {
         time = 0;
         score = 0;
         throughCount = 0;
-        undamaged_count = 0;
-        undamaged_count_boss = 0;
+        undamagedCount = 0;
+        undamagedCountBoss = 0;
         wallCount = 0;
         viewState = 0;
         hit = false;

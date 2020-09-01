@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PlayingState implements State {
 
@@ -53,8 +54,8 @@ public class PlayingState implements State {
         }
         
         //無敵時間の計測
-       model.damaged_ap();
-    	model.damaged_boss();
+       model.damagedAp();
+    	model.damagedBoss();
     	
        model.update(level);
        if(model.isHit()) {
@@ -94,7 +95,7 @@ public class PlayingState implements State {
         // 画面をいったんクリア
         view.clear(g);
         Airplane ap = model.getAirplane();
-        LinkedList <Wall> wall = model.getWall();
+        List <Wall> wall = model.getWall();
         Boss boss = model.getBoss();
         Attack bossatk = boss.getAttack();//ボスの攻撃
 

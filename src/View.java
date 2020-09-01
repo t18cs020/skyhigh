@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -119,7 +120,7 @@ public class View extends JPanel {
 		}
     }
     
-    public void drawWall(Graphics g, LinkedList <Wall> wall) {
+    public void drawWall(Graphics g, List<Wall> wall) {
 		for(int i = 0; i < wall.size() ; i++) {
 			Wall w = wall.get(i);
 			if(w.getExist()) {
