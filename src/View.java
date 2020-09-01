@@ -82,47 +82,48 @@ public class View extends JPanel {
     }
     
     public void drawGame(Graphics g,int level, Boss boss) {
+    	Image ib;
+    	Image idb;
+    	Image back;
 	    switch (level) {
 	    case 0:
-	    	g.drawImage(imageBack, 0, 0, this);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
-	    			g.drawImage(imageDBoss, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		else {
-	    			g.drawImage(imageBoss, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
+	    	//レベル1のとき
+	    	ib = imageBoss;
+	    	idb = imageDBoss;
+	    	back = imageBack;
 	    	break;
 	    case 1:
-	    	g.drawImage(imageBack2, 0, 0, this);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
-	    			g.drawImage(imageDBoss2, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		else {
-	    			g.drawImage(imageBoss2, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
+	    	//レベル2のとき
+	    	ib = imageBoss2;
+	    	idb = imageDBoss2;
+	    	back = imageBack2;
 	    	break;
 	    case 2:
-	    	g.drawImage(imageBack3, 0, 0, this);
-	    	//ボス,攻撃
-	    	if(boss.isBossExist()) {
-	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
-	    			g.drawImage(imageDBoss3, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		else {
-	    			g.drawImage(imageBoss3, boss.getBx(), boss.getBy(), this);
-	    		}
-	    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
-	    	}
+	    	//レベル3のとき
+	    	ib = imageBoss3;
+	    	idb = imageDBoss3;
+	    	back = imageBack3;
+	    	break;
+	    default:
+	    	ib = imageBoss;
+	    	idb = imageDBoss;
+	    	back = imageBack;
 	    	break;
 	    }
+    	g.drawImage(ib, 0, 0, this);
+    	//背景
+    	g.drawImage(back, 0, 0, this);
+    	//ボス,攻撃
+    	if(boss.isBossExist()) {
+    		if(boss.isUndamegedTime()) {//ボスの無敵時間
+    			g.drawImage(idb, boss.getBx(), boss.getBy(), this);
+    		}
+    		else {
+    			g.drawImage(ib, boss.getBx(), boss.getBy(), this);
+    		}
+    		g.drawString("LIFE: " + boss.getLife() , 400, 20);
+    	}
+    	
 	    Attack bossatk = boss.getAttack();
 		if(bossatk.isExist()) {
 			g.drawImage(imageBAtk, bossatk.getAtx(), bossatk.getAty(), this);

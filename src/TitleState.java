@@ -58,11 +58,14 @@ public class TitleState implements State{
 		public void paintComponent(Graphics g) {
 
 			switch (help) {
+			//画面遷移
 			case 1:
 				switch (cursor) {
+				//ヘルプ画面へ
 				case 1:
 					view.drawHelp(g);
 					break;
+				//ランキング画面へ
 				case 2:
 					view.drawRanking(g);
 					break;
