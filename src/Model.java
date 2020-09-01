@@ -85,14 +85,9 @@ public class Model {
     	Attack atk = ap.getAttack();
     	Attack bossAtk = boss.getAttack();
     	//ボスに攻撃が当たったかどうかを判別する
-    	if(boss.isBossExist() && hitBoss(atk, stateNumber) && atk.isExist()) {
-    		hit = true;
-        	boss.damagedBoss();
-			atk.reach();
-    	}
-
-    	if(bossAtk.isExist())
-    		hitAp(bossAtk);
+    	hitAttack(atk, stateNumber);
+    	
+    	hitAp(bossAtk);
 
     	//壁の処理
     	for(int i = wall.size() -1; i >= 0 ; i--) {
@@ -125,8 +120,16 @@ public class Model {
     	}
     }
 
-    public void hitAp(Attack bossAtk) {
-    	if(bossAtk.getAtx() <= ap.getApx()) {
+   private void hitAttack(Attack atk, int stateNumber) {
+    	if(boss.isBossExist() && hitBoss(atk, stateNumber) && atk.isExist()) {
+    		hit = true;
+        	boss.damagedBoss();
+			atk.reach();
+    	}
+	}
+
+	public void hitAp(Attack bossAtk) {
+    	if(bossAtk.isExist() && bossAtk.getAtx() <= ap.getApx()) {
     		if(equalY(bossAtk.getAty(), ap.getApy(), Attack.SIZE /2 ,Airplane.HEIGHT)
 	        		&& (!ap.isApUndamegedTime())
 	        		&& !bossAtk.isThrough()) {//x,y座標の関係,無敵時間,弾が過ぎてるかどうか
