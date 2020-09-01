@@ -54,7 +54,8 @@ public class Controller implements ActionListener, KeyListener, MouseListener {
         case KeyEvent.VK_ESCAPE:
             model.processKeyTyped("ESC");
             break;
-
+        default :
+        	break;
         }
     }
 

@@ -20,17 +20,16 @@ public class BossState implements State {
 	public State processKeyTyped(String typed) {
 		switch(typed) {
 		case "ESC":
-			return new TitleState(model);
-			
+			return new TitleState(model);			
 		case "b":
 			return model.getOldState();
+		default :
+			return this;
 		}
-		return this;
 	}
 
 	@Override
 	public State processMousePressed() {
-		// TODO 自動生成されたメソッド・スタブ
 		return this;
 	}
 
