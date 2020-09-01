@@ -26,7 +26,8 @@ public class TitleState implements State{
 				help = (help+1) % 2;
 				break;
 			case 2:
-				return new RankingState(model);
+				help = (help+1) % 2;
+				break;
 			case 3:
 				System.exit(0);
 			default :
@@ -55,7 +56,21 @@ public class TitleState implements State{
 		public State processMousePressed() { return this; }
 		// タイトル状態を描画するメソッド
 		public void paintComponent(Graphics g) {
-			view.drawTitle(g, cursor, help);
+
+			switch (help) {
+			case 1:
+				switch (cursor) {
+				case 1:
+					view.drawHelp(g);
+					break;
+				case 2:
+					view.drawRanking(g);
+				}
+				break;
+			default :
+				view.drawTitle(g, cursor, help);
+				break;
+			}
 		}
 }
 
