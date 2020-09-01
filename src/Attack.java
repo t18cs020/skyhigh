@@ -7,7 +7,7 @@ public class Attack {
 	private boolean through;
 	private static final int WIDTH = Game.WIN_WIDTH;
 	private static final int HEIGHT = Game.WIN_HEIGHT;
-	public final static int SIZE = 40;
+	public static final int SIZE = 40;
 	
 	public Attack() {
 		super();

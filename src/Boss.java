@@ -1,16 +1,16 @@
 
 public class Boss {
 	private int life;
-	private int bx, by;
+	private int bx;
+	private int by;
 	private Attack atk;
 	private boolean bossExist;
-	private boolean undameged_time;
-	private boolean boss_through;
-	private final static int SPEED = 10;
-	private final static int ATTACK_SPEED = -30;
-	final static int[] BOSS_SIZE = {30, 60, 60};
-	final static int[] BOSS_LIFE = {1, 1,1};
-	private int move_boss;
+	private boolean undamegedTime;
+	private boolean bossThrough;
+	private static final int ATTACK_SPEED = -30;
+	public final static int[] BOSS_SIZE = {30, 60, 60};
+	public final static int[] BOSS_LIFE = {1, 1,1};
+	private int moveBoss;
 	
 	public Boss(int i){
 		super();
@@ -18,15 +18,15 @@ public class Boss {
 		this.by = 200;
 		life = BOSS_LIFE[i];
 		bossExist = false;
-		undameged_time = false;
-		boss_through = false;
+		undamegedTime = false;
+		bossThrough = false;
 		atk = new Attack();
-		move_boss = 0;
+		moveBoss = 0;
 	}
 	
 	public void update() {
-		move_boss++;
-		if(move_boss % 100 == 0) {
+		moveBoss++;
+		if(moveBoss % 100 == 0) {
 			RandNumGenerator r = RandNumGenerator.getInstance();
 			by = r.nextInt(Game.WIN_HEIGHT);
 		}
@@ -48,10 +48,10 @@ public class Boss {
 		this.by = 200;
 		life = BOSS_LIFE[i];
 		bossExist = false;
-		undameged_time = false;
-		boss_through = false;
+		undamegedTime = false;
+		bossThrough = false;
 		atk = new Attack();
-		move_boss = 0;
+		moveBoss = 0;
 		
 		return this;
 	}
@@ -82,19 +82,19 @@ public class Boss {
 
 	public void damagedBoss() {
 		life--;
-		undameged_time = true;
-		boss_through = true;
+		undamegedTime = true;
+		bossThrough = true;
 	}
 	
-	public boolean isUndameged_time() {
-		return undameged_time;
+	public boolean isUndamegedTime() {
+		return undamegedTime;
 	}
 
-	public void setUndameged_time(boolean undameged_time) {
-		this.undameged_time = undameged_time;
+	public void setUndamegedTime(boolean undamegedTime) {
+		this.undamegedTime = undamegedTime;
 	}
 	
 	public boolean isBossThrough() {
-		return boss_through;
+		return bossThrough;
 	}
 }

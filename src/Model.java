@@ -141,7 +141,7 @@ public class Model {
     private boolean hitBoss(Attack atk, int stateNumber) {
     	if(atk.getAtx() >= boss.getBx()) {
     		if(equalY(atk.getAty(), boss.getBy(), Attack.SIZE ,Boss.BOSS_SIZE[stateNumber]) 
-	        		&& (!boss.isUndameged_time())
+	        		&& (!boss.isUndamegedTime())
 	        		&& !atk.isThrough()) {
     			return true;
 	        }
@@ -178,11 +178,11 @@ public class Model {
 	}
 	
 	public void damaged_boss() {
-    	if(boss.isUndameged_time()) {
+    	if(boss.isUndamegedTime()) {
     		undamaged_count_boss++;
     		if(undamaged_count_boss > 20) {
     			undamaged_count_boss = 0;
-    			boss.setUndameged_time(false);
+    			boss.setUndamegedTime(false);
     		}
     	}
 	}

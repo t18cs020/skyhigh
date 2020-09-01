@@ -77,7 +77,7 @@ public class View extends JPanel {
 	    	g.drawImage(imageBack, 0, 0, this);
 	    	//ボス,攻撃
 	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
 	    			g.drawImage(imageDBoss, boss.getBx(), boss.getBy(), this);
 	    		}
 	    		else {
@@ -90,7 +90,7 @@ public class View extends JPanel {
 	    	g.drawImage(imageBack2, 0, 0, this);
 	    	//ボス,攻撃
 	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
 	    			g.drawImage(imageDBoss2, boss.getBx(), boss.getBy(), this);
 	    		}
 	    		else {
@@ -103,7 +103,7 @@ public class View extends JPanel {
 	    	g.drawImage(imageBack3, 0, 0, this);
 	    	//ボス,攻撃
 	    	if(boss.isBossExist()) {
-	    		if(boss.isUndameged_time()) {//ボスの無敵時間
+	    		if(boss.isUndamegedTime()) {//ボスの無敵時間
 	    			g.drawImage(imageDBoss3, boss.getBx(), boss.getBy(), this);
 	    		}
 	    		else {
