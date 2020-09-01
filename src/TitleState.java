@@ -30,6 +30,7 @@ public class TitleState implements State{
 				break;
 			case 3:
 				System.exit(0);
+				break;
 			default :
 				break;
 			}
@@ -57,9 +58,8 @@ public class TitleState implements State{
 		// タイトル状態を描画するメソッド
 		public void paintComponent(Graphics g) {
 
-			switch (help) {
+			if (help == 1) {
 			//画面遷移
-			case 1:
 				switch (cursor) {
 				//ヘルプ画面へ
 				case 1:
@@ -72,10 +72,9 @@ public class TitleState implements State{
 				default :
 					break;
 				}
-				break;
-			default :
+			}
+			else {
 				view.drawTitle(g, cursor, help);
-				break;
 			}
 		}
 }

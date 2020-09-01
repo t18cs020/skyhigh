@@ -28,7 +28,7 @@ public class Model {
         view = new View(this);
         controller = new Controller(this);
         ap = new Airplane();
-        wall = new LinkedList<Wall>();
+        wall = new LinkedList<>();
         boss = new Boss(0);
         state = new TitleState(this);
         oldState = state;
