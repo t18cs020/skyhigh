@@ -123,7 +123,7 @@ public class View extends JPanel {
     		}
     		g.drawString("LIFE: " + boss.getLife() , 400, 20);
     	}
-    	
+    	//ボスの攻撃の描写
 	    Attack bossatk = boss.getAttack();
 		if(bossatk.isExist()) {
 			g.drawImage(imageBAtk, bossatk.getAtx(), bossatk.getAty(), this);
