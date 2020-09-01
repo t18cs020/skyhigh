@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.LinkedList;
 import java.util.List;
 
 public class PlayingState implements State {
@@ -36,6 +35,8 @@ public class PlayingState implements State {
 			return new BossState(model);
 		case "ESC": 
 			return new TitleState(model);
+		default :
+			break;
 		}
 		
 		ap.move(typedChar);
@@ -94,10 +95,7 @@ public class PlayingState implements State {
 	public void paintComponent(Graphics g) {
         // 画面をいったんクリア
         view.clear(g);
-        Airplane ap = model.getAirplane();
         List <Wall> wall = model.getWall();
-        Boss boss = model.getBoss();
-        Attack bossatk = boss.getAttack();//ボスの攻撃
 
 	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 	    g.setColor(Color.WHITE);

@@ -150,10 +150,8 @@ public class Model {
 	}
     
     public boolean hitWall(Wall w, Attack atk) {
-		if(equalY(atk.getAty(), w.getWy(),Attack.SIZE, Wall.HEIGHT) &&ap.getApx() <= w.getWx() && !w.hitWall(atk.getAtx()) ) {
-				return true;
-		}
-		return false;
+		return (equalY(atk.getAty(), w.getWy(),Attack.SIZE, Wall.HEIGHT) 
+				&&ap.getApx() <= w.getWx() && !w.hitWall(atk.getAtx()) ) ;
     }
 
 	private boolean equalY(int y, int wy ,int distance, int height) {
@@ -255,7 +253,7 @@ public class Model {
 	
 	public void newGame() {
         ap = new Airplane();
-        wall = new LinkedList<Wall>();
+        wall.clear();
         boss = new Boss(0);
         typedChar = "";
         time = 0;
