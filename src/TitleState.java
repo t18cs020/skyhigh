@@ -65,6 +65,9 @@ public class TitleState implements State{
 					break;
 				case 2:
 					view.drawRanking(g);
+					break;
+				default :
+					break;
 				}
 				break;
 			default :
