@@ -129,7 +129,8 @@ public class View extends JPanel {
 			g.drawImage(imageBAtk, bossatk.getAtx(), bossatk.getAty(), this);
 		}
     }
-    
+    //壁の描画
+    private int i = 0;
     public void drawWall(Graphics g, List<Wall> wall) {
 		for(int i = 0; i < wall.size() ; i++) {
 			Wall w = wall.get(i);
