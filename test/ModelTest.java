@@ -48,6 +48,22 @@ public class ModelTest {
     }
     
     @Test
+    public void makeWallのテスト() {
+    	Model model = new Model();
+    	model.makeWall();
+    	//壁にはブロック2個分の穴を開けてある
+    	assertEquals(Game.WIN_HEIGHT/Wall.HEIGHT -2, model.getWall().size());
+    }
+    
+    @Test
+    public void makeObstacleのテスト() {
+    	Model model = new Model();
+    	model.makeObstacle();
+    	//壁にはブロック2個分の穴を開けてある
+    	assertEquals(true, model.getObstacle().isExist());
+    }
+    
+    @Test
     public void hitWallのテスト() {
     	Model model = new Model();
     	Wall wall = new Wall(100);
