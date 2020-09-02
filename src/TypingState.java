@@ -23,7 +23,7 @@ public class TypingState implements State {
 	}
 	
 	public State processTimeElapsed(int msec) {
-		model.countTime();
+		
 		if(model.elapseTime() > 30) {
 			if(model.isTypingObstacle()) {
 				model.setTypingObstacle(false);

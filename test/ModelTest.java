@@ -57,5 +57,16 @@ public class ModelTest {
     	atk.updateAttack(1);
     	assertEquals(true, model.hitWall(wall, atk));
     }
+    
+    @Test
+    public void newGameのテスト() {
+    	Model model = new Model();
+    	model.newGame();
+    	assertEquals(false, model.isHit());
+    	assertEquals(false, model.isCleared());
+    	assertEquals(false, model.isTypingObstacle());
+    	assertEquals(false, model.isTypingBossAtk());
+    	assertEquals(false, model.isTypingBoss());
+    }
 
 }

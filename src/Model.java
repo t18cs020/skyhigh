@@ -31,7 +31,7 @@ public class Model {
     private boolean typingBossAtk;
     private boolean typingBoss;
 
-	private static final int BONUS = 500;
+	private static final int BONUS_SCORE = 500;
     private int bonus;
 
 	public Model() {
@@ -63,12 +63,14 @@ public class Model {
     }
 
 	public synchronized void processTimeElapsed(int msec) {
+		time++;
 		state = state.processTimeElapsed(msec);
         view.repaint();
     }
 
 	public synchronized void processKeyTyped(String typed) {
-		state = state.processKeyTyped(typed);
+		typedChar = typed;
+		state = state.processKeyTyped(typedChar);
         view.repaint();
     }
 
@@ -136,7 +138,7 @@ public class Model {
     			w.setThrough(true);
     			throughCount++;
     			if(throughCount == wall.size()) {
-    				score = score + 1000 + BONUS * bonus;
+    				score = score + 1000 + BONUS_SCORE * bonus;
     				bonus = 0;
     				wallCount++;
     			}
@@ -219,11 +221,11 @@ public class Model {
 
     public void calcBossScore() {//スコア計算
     	//攻撃15回以内にボスを倒したらボーナス
-    	score += BONUS * max(15 - ap.getDeltaAttackCount(),0);
+    	score += BONUS_SCORE * max(15 - ap.getDeltaAttackCount(),0);
  	}
     
     public void calcScore() {//スコア計算
-    	score += BONUS;
+    	score += BONUS_SCORE;
  	}
 
 	private int max(int a, int b) {
@@ -312,10 +314,6 @@ public class Model {
 		time = i;
 	}
 
-	public void setTypedChar(String s) {
-		typedChar = s;
-	}
-
 	public int getWallCount() {
 		return wallCount;
 	}
@@ -343,12 +341,12 @@ public class Model {
         undamagedCountBoss = 0;
         wallCount = 0;
         viewState = 0;
-        hit = false;
-        cleared = false;
+        setHit(false);
+        setCleared(false);
         continued = false;
-        typingObstacle = false;
-        typingBossAtk = false;
-        typingBoss = false;
+        setTypingObstacle(false);
+        setTypingBossAtk(false);
+        setTypingBoss(false);
         bonus = 0;
 	}
 
@@ -395,7 +393,7 @@ public class Model {
 		return continued;
 	}
 
-	public void Continued() {
+	public void setContinued() {
 		this.continued = true;
 	}
 	
@@ -406,11 +404,7 @@ public class Model {
 	public void setDeltaTime(int deltaTime) {
 		this.deltaTime = deltaTime;
 	}
-	
-	public void countTime() {
-		time++;
-	}
-	
+
     public boolean isTypingObstacle() {
 		return typingObstacle;
 	}

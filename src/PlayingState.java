@@ -9,7 +9,6 @@ public class PlayingState implements State {
 	private Airplane ap;
 	private Boss boss;
 	private View view;
-	private String typedChar;
 	private int level;
 	
 	public PlayingState(Model model) {
@@ -18,16 +17,12 @@ public class PlayingState implements State {
 		ap = model.getAirplane();
 		boss = model.getBoss();
 		view = model.getView();
-		typedChar = "";
 		level = 0;
 	}
 	
 	// タイトル状態におけるキータイプイベント処理
 	public State processKeyTyped(String typed) {
-		typedChar = typed;
-		model.setTypedChar(typedChar);
-		
-		switch(typedChar) {
+		switch(typed) {
 		case "b": 
 			model.setOldState(this);
 			return new BossState(model);
@@ -37,13 +32,12 @@ public class PlayingState implements State {
 			break;
 		}
 		
-		ap.move(typedChar);
+		ap.move(typed);
 		return this;
 	}
 
 	// タイトル状態の時間経過イベントを処理するメソッド
 	public State processTimeElapsed(int msec) { 
-        model.countTime();
         int time = model.getTime();
         if(time % 10 == 0) {
         	model.makeWall();
@@ -70,7 +64,7 @@ public class PlayingState implements State {
        //自機のライフが0になったときリザルトへ
        if(ap.getLife() == 0) {
 			model.setOldState(this);
-			model.Continued();
+			model.setContinued();
     	   return new ResultState(model);
        }
        //ボスのライフが0になったときレベルアップ
@@ -142,9 +136,6 @@ public class PlayingState implements State {
 	}
 	public View getView() {
 		return view;
-	}
-	public String getTypedChar() {
-		return typedChar;
 	}
 	public int getLevel() {
 		return level;

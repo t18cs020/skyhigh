@@ -181,11 +181,11 @@ public class View extends JPanel {
 		g.drawString("time : ", 110, 50);
 		g.setColor(Color.WHITE);
 		if(delta < 30) { //30カウント未満は白く表示
-			g.fillRect(240 + delta * 10, 30, 10, 40);
+			g.fillRect(240 + delta * 10, 22, 10, 40);
 		}
 		else if(delta < 60) { //30カウント経過したら赤く表示
 			g.setColor(Color.RED);
-			g.fillRect(240 + delta * 10, 30, 10, 40);
+			g.fillRect(240 + delta * 10, 22, 10, 40);
 		}
 	}
 
@@ -233,14 +233,14 @@ public class View extends JPanel {
 	public void drawRanking(Graphics g, List<Integer> ranking) {
 		clear(g);
 	    //本文
-	    g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
-	    g.setColor(Color.BLACK);
-	    g.drawString("歴代スコアベスト3" ,200 , 100);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
+		g.setColor(Color.BLACK);
+		g.drawString("歴代スコアベスト3" ,200 , 100);
 		g.drawString("1位 : " + ranking.get(0) ,200 , 250);
 		g.drawString("2位 : " + ranking.get(1) ,200 , 310);
 		g.drawString("3位 : " + ranking.get(2) ,200 , 370);
-	    g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
-	    g.drawString("Enterキーでタイトルに戻る", 200, 550);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
+		g.drawString("Enterキーでタイトルに戻る", 200, 550);
 	}
 	//リザルト画面の描画
 	public void drawResult(Graphics g, List<Integer> ranking) {

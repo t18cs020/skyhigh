@@ -15,7 +15,7 @@ public class TitleState implements State{
 		cursor = 0;
 		help = 0;
 		Ranking r = new Ranking();
-		ranking = r.addRanking(0);
+		ranking = r.read(0);
 	}
 	
 	public State processKeyTyped(String typed) {

@@ -11,11 +11,12 @@ public class ResultState implements State {
 		this.model = model;
 		Ranking r = new Ranking();
 		if(model.isContinued()) {
-			ranking = r.addRanking(0);
+			ranking = r.read(0);
 		}
 		else {
-			ranking = r.addRanking(model.getScore());
+			ranking = r.read(model.getScore());
 		}
+		r.write();
 	}
 
 	@Override
