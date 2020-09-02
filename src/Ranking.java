@@ -6,6 +6,7 @@ import java.util.List;
 public class Ranking {
 
 	private List<Integer> ranking;
+	PrintWriter out;
 	
 	public Ranking() {
 		ranking = new LinkedList<Integer>();
@@ -26,19 +27,18 @@ public class Ranking {
 			Collections.reverse(ranking);	
 			ranking = ranking.subList(0,3);
 			//ランキングファイルに書き込む
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 			for(int s: ranking) {
 				out.println(s);
 			}
 			br.close();
-			out.close();
 			
 		}catch(FileNotFoundException e){
             return ranking;
         }catch(IOException e){
             return ranking;
 		}finally {
-			;
+			out.close();
 		}
 		
 		return ranking;
