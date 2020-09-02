@@ -64,6 +64,14 @@ public class ModelTest {
     }
     
     @Test
+    public void resetのテスト() {
+    	Model model = new Model();
+    	assertEquals(Boss.BOSS_LIFE[0], model.getBoss().getLife());
+    	model.reset(1);
+    	assertEquals(Boss.BOSS_LIFE[1], model.getBoss().getLife());
+    }
+    
+    @Test
     public void hitWallのテスト() {
     	Model model = new Model();
     	Wall wall = new Wall(100);

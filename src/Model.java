@@ -227,7 +227,7 @@ public class Model {
     public void calcScore() {//スコア計算
     	score += BONUS_SCORE;
  	}
-
+//どっちが大きいか判別する
 	private int max(int a, int b) {
     	if(a>b) return a;
 		return b;
