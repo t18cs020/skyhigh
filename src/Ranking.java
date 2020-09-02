@@ -32,11 +32,13 @@ public class Ranking {
 			}
 			br.close();
 			out.close();
-
+			
 		}catch(FileNotFoundException e){
             return ranking;
         }catch(IOException e){
             return ranking;
+		}finally {
+			;
 		}
 		
 		return ranking;
