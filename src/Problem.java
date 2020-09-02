@@ -2,10 +2,10 @@ import java.io.*;
 
 public class Problem {
 
-	private String[] problem;
+	private String[] exam;
 	
 	public Problem() {
-		problem = new String[14];
+		exam = new String[14];
 	}
 	
 	public String[] makeProblem() {
@@ -16,16 +16,14 @@ public class Problem {
 			String str;
 			int i = 0;
 			while((str = br.readLine()) != null) {
-				problem[i] = str;
+				exam[i] = str;
 				i++;
 			}
 			
-		}catch(FileNotFoundException e){
-            return problem;
-        }catch(IOException e){
-            return problem;
+		}catch(IOException e){
+			return exam;
 		}
 		
-		return problem;
+		return exam;
 	}
 }

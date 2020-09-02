@@ -132,7 +132,7 @@ public class Model {
     		}
     		//プレイヤーアイコンと壁の衝突
     		if(ap.getApx() + (Attack.SIZE/2) >= w.getWx()){
-    			if(isHitApWall(ap,w)) {
+    			if(isHitApWall(w)) {
     				ap.damagedAirplane();
     			}
     			w.setThrough(true);
@@ -158,7 +158,7 @@ public class Model {
     }
     
     //自機と壁の衝突判定
-	private boolean isHitApWall(Airplane ap2, Wall w) {
+	private boolean isHitApWall(Wall w) {
 		return (!ap.isApUndamegedTime()) && equalY(ap.getApy(), w.getWy(),Airplane.HEIGHT, Wall.HEIGHT) 
 				&& !w.isThrough();
 	}
