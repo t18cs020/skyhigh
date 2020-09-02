@@ -189,9 +189,10 @@ public class View extends JPanel {
 		}
 	}
 
-	public void drawTitle(Graphics g,int cursor) {
+	public void drawTitle(Graphics g,int cursor, List<Wall> wall) {
 		
 		clear(g);
+		drawWall(g, wall);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
 		g.setColor(Color.BLACK);
 		g.drawString("Sky High", 230, 150);
@@ -205,8 +206,9 @@ public class View extends JPanel {
 
 	}
 
-	public void drawHelp(Graphics g) {
+	public void drawHelp(Graphics g, List<Wall> wall) {
 		clear(g);
+		drawWall(g,wall);
 		//本文
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		g.setColor(Color.BLACK);
@@ -230,9 +232,10 @@ public class View extends JPanel {
 		g.drawString("Enterキーでタイトルに戻る", 100, 560);
 	}
 
-	public void drawRanking(Graphics g, List<Integer> ranking) {
+	public void drawRanking(Graphics g, List<Integer> ranking, List<Wall> wall) {
 		clear(g);
 	    //本文
+		drawWall(g,wall);
 		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
 		g.setColor(Color.BLACK);
 		g.drawString("歴代スコアベスト3" ,200 , 100);

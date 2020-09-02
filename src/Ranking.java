@@ -39,7 +39,7 @@ public class Ranking {
 				out.println(s);
 			}
 		}catch(IOException e){
-			;
+			
 		}
 	}
 }

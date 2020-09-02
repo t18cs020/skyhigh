@@ -5,7 +5,7 @@ public class Problem {
 	private String[] exam;
 	
 	public Problem() {
-		exam = new String[14];
+		exam = new String[30];
 	}
 	
 	public String[] makeProblem() {
