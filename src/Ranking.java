@@ -8,12 +8,12 @@ public class Ranking {
 	private List<Integer> score;
 	
 	public Ranking() {
-		score = new LinkedList<Integer>();
+		score = new LinkedList<>();
 	}
 	
-	public List<Integer> read(int PlayerScore) {
+	public List<Integer> read(int playerScore) {
 
-		score.add(PlayerScore);
+		score.add(playerScore);
 		File file = new File("score.txt");
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -25,7 +25,6 @@ public class Ranking {
 			Collections.sort(score);
 			Collections.reverse(score);	
 			score = score.subList(0,3);
-			br.close();
 		}catch(IOException e){
             return score;
 		}
@@ -39,7 +38,6 @@ public class Ranking {
 			for(int s: score) {
 				out.println(s);
 			}
-			out.close();
 		}catch(IOException e){
 			return;
 		}

@@ -53,8 +53,9 @@ public class TypingState implements State {
 				model.setTypingBossAtk(false);
 			}
 			if(model.isTypingBoss()) {
-				if(model.elapseTime() <= 30)
-				model.getBoss().damagedBoss();
+				if(model.elapseTime() <= 30) {
+					model.getBoss().damagedBoss();
+				}
 				model.setTypingBoss(false);
 			}
 			return model.getOldState();
