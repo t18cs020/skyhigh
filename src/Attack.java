@@ -11,8 +11,8 @@ public class Attack {
 	
 	public Attack() {
 		super();
-		this.atx = 0;
-		this.aty = 0;
+		this.atx = 1000;
+		this.aty = 1000;
 		this.exist = false;
 		this.through = false;
 	}
@@ -34,7 +34,8 @@ public class Attack {
 	}
 	
 	public void reach() {
-		this.exist = false;
+		exist = false;
+		through = true;
 	}
 
 	public int getAtx() {

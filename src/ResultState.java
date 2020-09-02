@@ -1,14 +1,21 @@
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
+import java.util.List;
 
 public class ResultState implements State {
 
 	private Model model;
+	private List <Integer> ranking;
 	
-	public ResultState(Model model) {
+	public ResultState(Model model){
 		super();
 		this.model = model;
+		Ranking r = new Ranking();
+		if(model.isContinued()) {
+			ranking = r.addRanking(0);
+		}
+		else {
+			ranking = r.addRanking(model.getScore());
+		}
 	}
 
 	@Override
@@ -43,20 +50,6 @@ public class ResultState implements State {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(101, 101, 598, 398);
-		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
-		g.setColor(Color.BLACK);
-		g.drawRect(100, 100, 600, 400);
-
-		if(model.isCleared()) {
-			g.drawString("ゲームクリア！" ,200 , 150);
-		}
-		else {
-			g.drawString("ゲームオーバー" ,200 , 150);
-			g.drawString("Enterキーでゲームを再開" , 200, 400);
-		}
-		g.drawString("Escキーでタイトルに戻る" , 200, 450);
+		model.getView().drawResult(g, ranking);
 	}
-
 }

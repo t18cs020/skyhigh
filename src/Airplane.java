@@ -3,9 +3,12 @@ public class Airplane {
 	private int life;
 	private int apX;
 	private int apY;
+	private int deltaAttackCount;
 	private boolean exist;
 	private Attack atk;
 	private boolean apUndamagedTime;
+	private Model model;
+	
 	private static final int SPEED = 10;
 	private static final int AP_LIFE = 3;
 	private static final int ATTACK_SPEED = 25;
@@ -14,13 +17,15 @@ public class Airplane {
 	public static final int DEFAULT_X = 100;
 	public static final int DEFAULT_Y = 100;
 	
-	public Airplane() {
+	public Airplane(Model model) {
 		super();
+		this.model = model;
 		this.life = AP_LIFE;
 		this.apX = DEFAULT_X;
 		this.apY = DEFAULT_Y;
 		exist = true;
 		apUndamagedTime = false;
+        deltaAttackCount = 0;//ボス戦に入った時の攻撃回数
 		atk = new Attack();
 	}
 
@@ -36,7 +41,10 @@ public class Airplane {
 		if(apX < 0)apX = 0;
 		if(apX > Game.WIN_WIDTH)apX = Game.WIN_WIDTH;
 		if(apY < 0)apY = 0;
-		if(apY > Game.WIN_HEIGHT)apY = Game.WIN_HEIGHT;
+		if(apY > Game.WIN_HEIGHT) {
+			apY = DEFAULT_Y;
+			life = 0;
+		}
 		atk.isOutOfScreen();
 	}
 	
@@ -63,6 +71,8 @@ public class Airplane {
 	public void shot() {
 		if(!atk.isExist()) {
 			atk.shotAttack(apX, apY);
+			if(model.getBoss().isBossExist())
+				deltaAttackCount++;
 		}
 	}
 	
@@ -106,6 +116,18 @@ public class Airplane {
 
 	public boolean isExist() {
 		return exist;
+	}
+	
+    public int getDeltaAttackCount() {
+		return deltaAttackCount;
+	}
+
+	public void setDeltaAttackCount(int deltaAttackCount) {
+		this.deltaAttackCount = deltaAttackCount;
+	}
+
+	public void heal() {
+		life++;
 	}
 
 }

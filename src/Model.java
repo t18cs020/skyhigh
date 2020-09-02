@@ -13,28 +13,40 @@ public class Model {
     private List<Wall> wall;
     private String typedChar;
     private Boss boss;
+    private Attack obstacle;//障害物
+    private static final int OBSTACLE_SPEED = -20;
 
-    private int undamagedCount;
-    private int undamagedCountBoss;
+    private int undamagedCount;//無敵時間のカウント
+    private int undamagedCountBoss;//ボスの無敵時間のカウント
     private int time;
-    private int score;
+    private int deltaTime;
+    private int score;//プレイヤーのスコア
     private int throughCount;//壁を通過したかどうかを確認する
-    private static final int[] QUOTA = {1, 2, 2};//ボスの登場するスコアのノルマ;//ボスの登場するスコアのノルマ
+    private static final int[] QUOTA = {1,2,3};//{5, 7, 9};//ボスの登場するスコアのノルマ
     private int wallCount;
     private boolean hit;
     private boolean cleared;
+    private boolean continued;
+    private boolean typingObstacle;
+    private boolean typingBossAtk;
+    private boolean typingBoss;
+
+	private static final int BONUS = 500;
+    private int bonus;
 
 	public Model() {
         view = new View(this);
         controller = new Controller(this);
-        ap = new Airplane();
+        ap = new Airplane(this);
         wall = new LinkedList<>();
         boss = new Boss(0);
         state = new TitleState(this);
         oldState = state;
+        obstacle = new Attack();
         viewState = 0;
         typedChar = "";
         time = 0;
+        deltaTime = 0;
         score = 0;
         throughCount = 0;
         undamagedCount = 0;
@@ -42,6 +54,11 @@ public class Model {
         wallCount = 0;
         hit = false;
         cleared = false;
+        continued = false;
+        typingObstacle = false;
+        typingBossAtk = false;
+        typingBoss = false;
+        bonus = 0;
         setViewState(0);
     }
 
@@ -79,16 +96,29 @@ public class Model {
     	}
 	}
     
+    public void makeObstacle() {
+    	if(!obstacle.isExist()) {
+			RandNumGenerator r = RandNumGenerator.getInstance();
+			obstacle.shotAttack(Game.WIN_WIDTH, r.nextInt(Game.WIN_HEIGHT));
+    	}
+	}
+    
     public void update(int stateNumber) {
     	ap.update();
     	boss.update();
+    	obstacle.updateAttack(OBSTACLE_SPEED);
+    	obstacle.isOutOfScreen();
+    	
     	Attack atk = ap.getAttack();
     	Attack bossAtk = boss.getAttack();
     	//ボスに攻撃が当たったかどうかを判別する
     	hitAttack(atk, stateNumber);
     	
     	hitAp(bossAtk);
-
+    	hitBossAtk(atk, bossAtk);
+    	hitAp(obstacle);
+    	hitObstacle(atk, obstacle);
+    	
     	//壁の処理
     	for(int i = wall.size() -1; i >= 0 ; i--) {
     		Wall w = wall.get(i);
@@ -100,14 +130,14 @@ public class Model {
     		}
     		//プレイヤーアイコンと壁の衝突
     		if(ap.getApx() + (Attack.SIZE/2) >= w.getWx()){
-    			if((!ap.isApUndamegedTime()) && equalY(ap.getApy(), w.getWy(),Airplane.HEIGHT, Wall.HEIGHT) 
-    					&& !w.isThrough()) {
+    			if(isHitApWall(ap,w)) {
     				ap.damagedAirplane();
     			}
     			w.setThrough(true);
     			throughCount++;
     			if(throughCount == wall.size()) {
-    				score += 1000;
+    				score = score + 1000 + BONUS * bonus;
+    				bonus = 0;
     				wallCount++;
     			}
     		}
@@ -116,22 +146,34 @@ public class Model {
     			hit = true;
     			wall.remove(i);
     			atk.reach();
+    			bonus++;
     		}
     	}
     }
-
-   private void hitAttack(Attack atk, int stateNumber) {
+    //時間の差を求める
+    public int elapseTime() {
+    	return time - deltaTime;
+    }
+    
+    //自機と壁の衝突判定
+	private boolean isHitApWall(Airplane ap2, Wall w) {
+		return (!ap.isApUndamegedTime()) && equalY(ap.getApy(), w.getWy(),Airplane.HEIGHT, Wall.HEIGHT) 
+				&& !w.isThrough();
+	}
+	//攻撃とボスの衝突判定
+	private void hitAttack(Attack atk, int stateNumber) {
     	if(boss.isBossExist() && hitBoss(atk, stateNumber) && atk.isExist()) {
     		hit = true;
-        	boss.damagedBoss();
-			atk.reach();
+    		boss.damagedBoss();
+    		typingBoss = true;
+    		atk.reach();
     	}
-	}
+    }
 
 	public void hitAp(Attack bossAtk) {
     	if(bossAtk.isExist() && bossAtk.getAtx() <= ap.getApx()) {
     		if(equalY(bossAtk.getAty(), ap.getApy(), Attack.SIZE /2 ,Airplane.HEIGHT)
-	        		&& (!ap.isApUndamegedTime())
+	        		&& !ap.isApUndamegedTime()
 	        		&& !bossAtk.isThrough()) {//x,y座標の関係,無敵時間,弾が過ぎてるかどうか
 	        	ap.damagedAirplane();
 				bossAtk.reach();
@@ -139,7 +181,7 @@ public class Model {
     		bossAtk.setThrough(true);
     	}
 	}
-    
+    //ボスに攻撃が当たったかどうか
     private boolean hitBoss(Attack atk, int stateNumber) {
     	if(atk.getAtx() >= boss.getBx()) {
     		if(equalY(atk.getAty(), boss.getBy(), Attack.SIZE ,Boss.BOSS_SIZE[stateNumber]) 
@@ -151,12 +193,45 @@ public class Model {
     	}
     	return false;
 	}
-    
+    //障害物に攻撃が当たったかどうか
+    private void hitObstacle(Attack atk, Attack atk2) {
+    	if(atk.getAtx() >= atk2.getAtx() && equalY(atk.getAty(), atk2.getAty(), Attack.SIZE , Attack.SIZE)
+    				&& atk.isExist() && !atk2.isThrough()){
+    		hit = true;
+    		typingObstacle = true;
+    		atk.reach();
+    	}
+	}
+    //障害物に攻撃が当たったかどうか
+    private void hitBossAtk(Attack atk, Attack atk2) {
+    	if(atk.getAtx() >= atk2.getAtx() && equalY(atk.getAty(), atk2.getAty(), Attack.SIZE , Attack.SIZE)
+    				&& atk.isExist() && !atk2.isThrough()){
+    		hit = true;
+    		typingBossAtk = true;
+    		atk.reach();
+    	}
+	}
+    //自分の攻撃が壁に当たったかどうか
     public boolean hitWall(Wall w, Attack atk) {
 		return (equalY(atk.getAty(), w.getWy(),Attack.SIZE, Wall.HEIGHT) 
 				&&ap.getApx() <= w.getWx() && !w.hitWall(atk.getAtx()) ) ;
     }
 
+    public void calcBossScore() {//スコア計算
+    	//攻撃15回以内にボスを倒したらボーナス
+    	score += BONUS * max(15 - ap.getDeltaAttackCount(),0);
+ 	}
+    
+    public void calcScore() {//スコア計算
+    	score += BONUS;
+ 	}
+
+	private int max(int a, int b) {
+    	if(a>b) return a;
+		return b;
+	}
+
+	//y座標が一致してるかどうか
 	private boolean equalY(int y, int wy ,int distance, int height) {
     	return ((y + (distance/2) >= wy && y + (distance/2) < wy + height)
     			|| (y >= wy && y < wy + height)
@@ -255,11 +330,13 @@ public class Model {
 	}
 	
 	public void newGame() {
-        ap = new Airplane();
+        ap = new Airplane(this);
         wall.clear();
         boss = new Boss(0);
+        obstacle = new Attack();
         typedChar = "";
         time = 0;
+        deltaTime = 0;
         score = 0;
         throughCount = 0;
         undamagedCount = 0;
@@ -268,6 +345,11 @@ public class Model {
         viewState = 0;
         hit = false;
         cleared = false;
+        continued = false;
+        typingObstacle = false;
+        typingBossAtk = false;
+        typingBoss = false;
+        bonus = 0;
 	}
 
 	public void setOldState(State st) {
@@ -303,5 +385,53 @@ public class Model {
 	
 	public int getQUOTA(int i) {
 		return QUOTA[i];
+	}
+	
+	public Attack getObstacle() {
+		return obstacle;
+	}
+
+	public boolean isContinued() {
+		return continued;
+	}
+
+	public void Continued() {
+		this.continued = true;
+	}
+	
+	public int getDeltaTime() {
+		return deltaTime;
+	}
+
+	public void setDeltaTime(int deltaTime) {
+		this.deltaTime = deltaTime;
+	}
+	
+	public void countTime() {
+		time++;
+	}
+	
+    public boolean isTypingObstacle() {
+		return typingObstacle;
+	}
+
+	public void setTypingObstacle(boolean typingObstacle) {
+		this.typingObstacle = typingObstacle;
+	}
+	
+	public boolean isTypingBossAtk() {
+		return typingBossAtk;
+	}
+
+	public void setTypingBossAtk(boolean typingBossAtk) {
+		this.typingBossAtk = typingBossAtk;
+	}
+	
+	public boolean isTypingBoss() {
+		return typingBoss;
+	}
+
+	public void setTypingBoss(boolean typingBoss) {
+		this.typingBoss = typingBoss;
 	}
 }

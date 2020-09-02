@@ -8,8 +8,8 @@ public class Boss {
 	private boolean undamegedTime;
 	private boolean bossThrough;
 	private static final int ATTACK_SPEED = -30;
-	protected static final int[] BOSS_SIZE = {30, 60, 60};
-	protected static final int[] BOSS_LIFE = {1, 1,1};
+	protected static final int[] BOSS_SIZE = {30, 60, 100};
+	protected static final int[] BOSS_LIFE = {1, 2, 3};
 	private int moveBoss;
 	
 	public Boss(int i){

@@ -7,27 +7,56 @@ public class TypingState implements State {
 	private String answer;
 	private int count;
 	private boolean isTyped;
-	private String[] data = {"apple", "gomi", "kasu", "unko", "shine"};
+	private String[] data;
 	public static final String BS = "\b";
 	
 	public TypingState(Model model) {
 		super();
 		this.model = model;
 		s = "";
+		Problem problem = new Problem();
+		data = problem.makeProblem();
 		RandNumGenerator r = RandNumGenerator.getInstance();
-		answer = data[r.nextInt(5)];
+		answer = data[r.nextInt(data.length)];
 		this.isTyped = false;
 		this.count = 0;
 	}
 	
 	public State processTimeElapsed(int msec) {
+		model.countTime();
+		if(model.elapseTime() > 30) {
+			if(model.isTypingObstacle()) {
+				model.setTypingObstacle(false);
+				model.setHit(false);
+				return model.getOldState();
+			}
+			if(model.isTypingBossAtk()) {
+				model.setTypingBossAtk(false);
+				model.setHit(false);
+				return model.getOldState();
+			}
+		}
 		return this;
 	}
 
 	@Override
 	public State processKeyTyped(String typed) {
-		if(update(typed)) {
+		if(update(typed)) {//タイピングが完了したら
 			model.setHit(false);
+			model.calcScore();
+			if(model.isTypingObstacle()) {
+				model.getObstacle().reach();
+				model.setTypingObstacle(false);
+			}
+			if(model.isTypingBossAtk()) {
+				model.getBoss().getAttack().reach();
+				model.setTypingBossAtk(false);
+			}
+			if(model.isTypingBoss()) {
+				if(model.elapseTime() <= 30)
+				model.getBoss().damagedBoss();
+				model.setTypingBoss(false);
+			}
 			return model.getOldState();
 		}
 		return this;
@@ -46,11 +75,26 @@ public class TypingState implements State {
 
 	public boolean update(String event) {
 
-		if(event.equals(BS) && !s.isEmpty())
-			s = s.substring(0, getLength()-1);
-		else if(!event.equals(BS))
-			s += event;
-		
+		switch (event) {
+        case "ENTER":
+            break;
+        case "UP":
+            break;
+        case "DOWN":
+            break;
+        case "LEFT":
+            break;
+        case "RIGHT":
+            break;
+        case "ESC":
+            break;
+        default:
+        	if(event.equals(BS) && !s.isEmpty())
+        		s = s.substring(0, getLength()-1);
+        	else if(!event.equals(BS))
+        		s += event;
+        	break;
+		}
 		return s.equals(answer);
 	}
 	

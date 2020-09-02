@@ -30,6 +30,7 @@ public class View extends JPanel {
     private Image imageDBoss2;
     private Image imageDBoss3;
     private AudioClip sound;
+    
     public View(Model model) {
         this.model = model;
         
@@ -41,10 +42,10 @@ public class View extends JPanel {
         imageWl = Toolkit.getDefaultToolkit().getImage(getClass().getResource("wall.jpg"));
         imageBoss = Toolkit.getDefaultToolkit().getImage(getClass().getResource("boss.png"));
         imageBoss2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("boss2.png"));
-        imageBoss3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("boss2.png"));
+        imageBoss3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("boss3.png"));
         imageDBoss = Toolkit.getDefaultToolkit().getImage(getClass().getResource("damaged_boss.png"));
         imageDBoss2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("damaged_boss2.png"));
-        imageDBoss3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("damaged_boss2.png"));
+        imageDBoss3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("damaged_boss3.png"));
         imageBack = Toolkit.getDefaultToolkit().getImage(getClass().getResource("sky.jpg"));
         imageBack2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("sky2.jpg"));
         imageBack3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("sky3.jpg"));
@@ -108,7 +109,7 @@ public class View extends JPanel {
     	g.drawImage(ib, 0, 0, this);
     	//背景
     	g.drawImage(back, 0, 0, this);
-    	//ボス,攻撃
+    	//ボス
     	if(boss.isBossExist()) {
     		if(boss.isUndamegedTime()) {//ボスの無敵時間
     			g.drawImage(idb, boss.getBx(), boss.getBy(), this);
@@ -119,10 +120,7 @@ public class View extends JPanel {
     		g.drawString("LIFE: " + boss.getLife() , 400, 20);
     	}
     	//ボスの攻撃の描写
-	    Attack bossatk = boss.getAttack();
-		if(bossatk.isExist()) {
-			g.drawImage(imageBAtk, bossatk.getAtx(), bossatk.getAty(), this);
-		}
+	    drawObstacle(g, boss.getAttack());
     }
     //壁の描画
     public void drawWall(Graphics g, List<Wall> wall) {
@@ -131,6 +129,13 @@ public class View extends JPanel {
 			if(w.getExist()) {
 				g.drawImage(imageWl, w.getWx(), w.getWy(), this);
 			}
+		}
+    }
+    
+    //障害物の描画
+    public void drawObstacle(Graphics g, Attack obstacle) {
+		if(obstacle.isExist()) {
+			g.drawImage(imageBAtk, obstacle.getAtx(), obstacle.getAty(), this);
 		}
     }
     /**
@@ -160,22 +165,36 @@ public class View extends JPanel {
     }
 
 	public void drawTyping(Graphics g, String answer, String s) {
-		g.setColor(Color.WHITE);
 
-	    g.fillRect(100, 100, 600, 60);
-	    g.fillRect(100, 300, 600, 60);
-	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
-	    g.setColor(Color.BLACK);
-	    g.drawString(answer , 110, 150);
-	    g.drawString(s , 110, 350);
+		int delta = model.elapseTime();
+
+		g.setColor(Color.WHITE);
+		g.fillRect(100, 100, 600, 60);
+		g.fillRect(100, 300, 600, 60);
+		//タイピング部分の描画
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		g.setColor(Color.BLACK);
+		g.drawString(answer , 110, 150);
+		g.drawString(s , 110, 350);
+		//時間の描画
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		g.drawString("time : ", 110, 50);
+		g.setColor(Color.WHITE);
+		if(delta < 30) { //30カウント未満は白く表示
+			g.fillRect(240 + delta * 10, 30, 10, 40);
+		}
+		else if(delta < 60) { //30カウント経過したら赤く表示
+			g.setColor(Color.RED);
+			g.fillRect(240 + delta * 10, 30, 10, 40);
+		}
 	}
 
 	public void drawTitle(Graphics g,int cursor) {
 		
 		clear(g);
-		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
 		g.setColor(Color.BLACK);
-		g.drawString("Sky High", 275, 150);
+		g.drawString("Sky High", 230, 150);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 		g.drawString("ゲームスタート", 330, 300);
 		g.drawString("ヘルプ", 330, 350);
@@ -202,22 +221,52 @@ public class View extends JPanel {
 		g.drawString("攻撃によって壁を壊したりボスに", 250, 250);
 		g.drawString("ダメージを与えることがができます", 250, 290);
 		g.drawString("ボスの体力が0になったらレベルが上昇します", 250, 330);
-		g.drawString("プレイヤーの体力が0になったら", 250, 370);
-		g.drawString("ゲームオーバーです", 250, 400);
+		g.drawString("プレイヤーの体力が0になったり,", 250, 370);
+		g.drawString("墜落したらゲームオーバーです", 250, 400);
 		g.drawString("ゲーム中にbキーを押すとボスが来た画面に遷移します", 250, 440);
 		g.drawString("(再度bキーを押すとゲームを再開します)", 250, 470);
-		g.drawString("ゲーム中,ボスが来た画面でEscを押すと", 250, 510);
+		g.drawString("ゲーム中,またはボスが来た画面でEscを押すと", 250, 500);
 		g.drawString("タイトル画面に戻ります", 250, 530);
 		g.drawString("Enterキーでタイトルに戻る", 100, 560);
 	}
 
-	public void drawRanking(Graphics g) {
+	public void drawRanking(Graphics g, List<Integer> ranking) {
 		clear(g);
 	    //本文
 	    g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
-	    g.setColor(Color.WHITE);
-	    g.drawString("まだできてないです", 200, 100);
+	    g.setColor(Color.BLACK);
+	    g.drawString("歴代スコアベスト3" ,200 , 100);
+		g.drawString("1位 : " + ranking.get(0) ,200 , 250);
+		g.drawString("2位 : " + ranking.get(1) ,200 , 310);
+		g.drawString("3位 : " + ranking.get(2) ,200 , 370);
+	    g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
 	    g.drawString("Enterキーでタイトルに戻る", 200, 550);
+	}
+	//リザルト画面の描画
+	public void drawResult(Graphics g, List<Integer> ranking) {
+		g.setColor(Color.WHITE);
+		g.fillRect(101, 101, 598, 398);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		g.setColor(Color.BLACK);
+		g.drawRect(100, 100, 600, 400);
+
+		if(model.isCleared()) {
+			g.drawString("ゲームクリア！" ,200 , 150);
+			g.drawString("あなたのスコア : " + model.getScore() ,200 , 200);
+			g.drawString("1位 : " + ranking.get(0) ,200 , 250);
+			g.drawString("2位 : " + ranking.get(1) ,200 , 300);
+			g.drawString("3位 : " + ranking.get(2) ,200 , 350);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+			if(model.isContinued()) {
+				g.drawString("コンティニューしたのでスコアは反映されません" ,200 , 400);
+			}
+		}
+		else {
+			g.drawString("ゲームオーバー" ,200 , 150);
+			g.drawString("Enterキーでゲームを再開" , 200, 400);
+		}
+		g.drawString("Escキーでタイトルに戻る" , 200, 450);
+	
 	}
 	
 }

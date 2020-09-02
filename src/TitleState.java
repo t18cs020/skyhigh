@@ -1,10 +1,12 @@
 import java.awt.Graphics;
+import java.util.List;
 
 public class TitleState implements State{
 	private Model model;
 	private View view;
 	private int cursor;
 	private int help;
+	private List <Integer> ranking;
 	
 	public TitleState(Model model) {
 		super();
@@ -12,6 +14,8 @@ public class TitleState implements State{
 		view = model.getView();
 		cursor = 0;
 		help = 0;
+		Ranking r = new Ranking();
+		ranking = r.addRanking(0);
 	}
 	
 	public State processKeyTyped(String typed) {
@@ -37,12 +41,12 @@ public class TitleState implements State{
 			break;
 			
 		case "UP" :
-			if(cursor > 0)
+			if(cursor > 0 && help == 0)
 				cursor--;
 			break;
 			
 		case "DOWN" :
-			if(cursor < 3)
+			if(cursor < 3 && help == 0)
 				cursor++;
 			break;
 
@@ -67,7 +71,7 @@ public class TitleState implements State{
 					break;
 				//ランキング画面へ
 				case 2:
-					view.drawRanking(g);
+					view.drawRanking(g, ranking);
 					break;
 				default :
 					break;
