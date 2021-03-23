@@ -314,15 +314,18 @@ public class View extends JPanel {
 			g.drawString("ダメージを与えることがができます", 250, 200);
 			g.drawString("ボスの体力が0になったらレベルが上昇し,", 250, 230);
 			g.drawString("プレイヤーの体力が2回復します", 250, 260);
+			g.drawString("また,プレイ中にプレイヤーは", 250, 290);
+			g.drawString("徐々に下降していきます", 250, 320);
 			break;
 		case 2:
 			g.drawString("ルール:", 100, 140);
 			g.drawString("プレイヤーの体力が0になったり,", 250, 140);
 			g.drawString("墜落したらゲームオーバーです", 250, 170);
-			g.drawString("ゲーム中にbキーを押すとボスが来た画面に遷移します", 250, 200);
-			g.drawString("(再度bキーを押すとゲームを再開します)", 250, 230);
-			g.drawString("ゲーム中,またはボスが来た画面でEscを押すと", 250, 260);
-			g.drawString("ポーズ画面に遷移します", 250, 290);
+			g.drawString("ゲーム中にbキーを押すと", 250, 200);
+			g.drawString("ボスが来た画面に遷移します", 250, 230);
+			g.drawString("(再度bキーを押すとゲームを再開します)", 250, 260);
+			g.drawString("ゲーム中,またはボスが来た画面でEscを押すと", 250, 290);
+			g.drawString("ポーズ画面に遷移します", 250, 320);
 			break;
 		case 3:
 			g.drawString("クレジット", 100, 140);

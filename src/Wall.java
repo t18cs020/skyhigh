@@ -5,7 +5,7 @@ public class Wall {
 	private boolean exist;
 	private boolean through;
 	public static final int HEIGHT = 40;
-	private static final int[] SPEED = {5,5,6};
+	private static final int[] SPEED = {5,5,7};
 	
 	public Wall(int wy) {
 		super();
