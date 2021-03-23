@@ -29,7 +29,7 @@ public class BossState implements State {
 	}
 
 	@Override
-	public State processMousePressed() {
+	public State processMousePressed(int x, int y) {
 		return this;
 	}
 

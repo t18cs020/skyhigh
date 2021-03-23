@@ -5,7 +5,7 @@ public class ResultState implements State {
 
 	private Model model;
 	private List <Integer> ranking;
-	
+
 	public ResultState(Model model){
 		super();
 		this.model = model;
@@ -28,6 +28,7 @@ public class ResultState implements State {
 	public State processKeyTyped(String typed) {
 		switch(typed) {
 		case "ESC":
+			model.getView().stopBgm();
 			return new TitleState(model);
 			
 		case "ENTER":
@@ -45,7 +46,7 @@ public class ResultState implements State {
 	}
 
 	@Override
-	public State processMousePressed() {
+	public State processMousePressed(int x, int y) {
 		return this;
 	}
 

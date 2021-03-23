@@ -1,15 +1,18 @@
+import java.util.LinkedList;
 
 public class Boss {
 	private int life;
 	private int bx;
 	private int by;
-	private Attack atk;
+	private LinkedList <Attack> atk;
 	private boolean bossExist;
 	private boolean undamegedTime;
 	private boolean bossThrough;
-	protected static final int ATTACK_SPEED = -30;
-	protected static final int[] BOSS_SIZE = {30, 60, 100};
-	protected static final int[] BOSS_LIFE = {1, 2, 3};
+	protected static final int ATTACK_SPEED = -10;
+	protected static final int[] BOSS_SIZE = {30, 80, 100};
+	protected static final int[] BOSS_LIFE = {3,5,10};
+	protected static final int ATTACKS = 3;
+	protected static final int MOVETIME = 150;
 	private int moveBoss;
 	
 	public Boss(int i){
@@ -20,26 +23,32 @@ public class Boss {
 		bossExist = false;
 		undamegedTime = false;
 		bossThrough = false;
-		atk = new Attack();
+		atk = new LinkedList<>();
+		for(int j = 0; j < ATTACKS; j++)
+			atk.add(new Attack());
 		moveBoss = 0;
 	}
-	
-	public void update() {
-		moveBoss++;
-		if(moveBoss % 100 == 0) {
-			RandNumGenerator r = RandNumGenerator.getInstance();
-			by = r.nextInt(Game.WIN_HEIGHT);
-		}
-		
-		if(atk.isExist()) {
-			atk.updateAttack(ATTACK_SPEED);
-			atk.isOutOfScreen();
-		}
 
+	public void update(int stateNumber) {
+		moveBoss++;
+		for(int i = 0; i < ATTACKS; i++) {
+			if(moveBoss % MOVETIME == 0) {
+				RandNumGenerator r = RandNumGenerator.getInstance();
+				by = r.nextInt(Game.WIN_HEIGHT - BOSS_SIZE[stateNumber]);
+			}
+			Attack _atk = atk.get(i);
+			if(_atk.isExist()) {
+				_atk.updateAttack(ATTACK_SPEED);
+				_atk.isOutOfScreen();
+			}
+		}
 	}
-	public void shot() {
-		if(!atk.isExist()) {
-			atk.shotAttack(bx, by);
+
+	
+	public void shot(Attack _atk) {
+		if(!_atk.isExist()) {
+			RandNumGenerator r = RandNumGenerator.getInstance();
+			_atk.shotAttack(bx, r.nextInt(Game.WIN_HEIGHT));
 		}
 	}
 	
@@ -50,7 +59,9 @@ public class Boss {
 		bossExist = false;
 		undamegedTime = false;
 		bossThrough = false;
-		atk = new Attack();
+		atk = new LinkedList<> ();
+		for(int j = 0; j < ATTACKS; j++)
+			atk.add(new Attack());
 		moveBoss = 0;
 		
 		return this;
@@ -72,7 +83,7 @@ public class Boss {
 		return by;
 	}
 	
-	public Attack getAttack () {
+	public LinkedList <Attack> getAttack () {
 		return atk;
 	}
 	

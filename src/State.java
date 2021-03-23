@@ -7,7 +7,7 @@ public interface State {
 	// 状態に応じてキータイプイベントを処理するメソッド
 	public State processKeyTyped(String typed);
 	// 状態に応じてマウスクリックイベントを処理するメソッド
-	public State processMousePressed();
+	public State processMousePressed(int x, int y);
 	// 状態に応じて画面を描画するメソッド
 	public void paintComponent(Graphics g);
 	

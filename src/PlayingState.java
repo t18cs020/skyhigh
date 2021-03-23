@@ -10,7 +10,7 @@ public class PlayingState implements State {
 	private Boss boss;
 	private View view;
 	private int level;
-	
+
 	public PlayingState(Model model) {
 		super();
 		this.model = model;
@@ -18,6 +18,7 @@ public class PlayingState implements State {
 		boss = model.getBoss();
 		view = model.getView();
 		level = 0;
+    	view.startBgm(model.getBgmVolume());
 	}
 	
 	// タイトル状態におけるキータイプイベント処理
@@ -26,8 +27,9 @@ public class PlayingState implements State {
 		case "b": 
 			model.setOldState(this);
 			return new BossState(model);
-		case "ESC": 
-			return new TitleState(model);
+		case "ESC":
+			model.setOldState(this);
+			return new PauseState(model);
 		default :
 			break;
 		}
@@ -44,7 +46,8 @@ public class PlayingState implements State {
         }
         //ボスの攻撃発射
         if(boss.isBossExist() && time % 20 == 0) {
-        	boss.shot();
+        	for(int i = 0; i < Boss.ATTACKS; i++)
+        		boss.shot(boss.getAttack().get(i));
         }
         
         //障害物の生成
@@ -54,12 +57,7 @@ public class PlayingState implements State {
        model.damagedAp();
     	model.damagedBoss();
     	
-       model.update(level);
-       if(model.isHit()) {
-    	   model.setDeltaTime(time);
-			model.setOldState(this);
-    	   return new TypingState(model);
-       }
+       model.update();
        
        //自機のライフが0になったときリザルトへ
        if(ap.getLife() == 0) {
@@ -71,6 +69,7 @@ public class PlayingState implements State {
        if(boss.getLife() <= 0) {
     	   level++;
     	   model.calcBossScore();
+    	   model.setLevel(level);
     	   if(level == 3) {
     		   model.setCleared(true);
     		   return new ResultState(model);
@@ -95,33 +94,14 @@ public class PlayingState implements State {
 	}
 
 	// タイトル状態のマウスクリックイベントを処理するメソッド
-	public State processMousePressed() {
-        model.getView().playBombSound();
+	public State processMousePressed(int x, int y) {
     	 model.getAirplane().shot();
 		return this; 
 	}
 	
 	public void paintComponent(Graphics g) {
-        // 画面をいったんクリア
-        view.clear(g);
-        List <Wall> wall = model.getWall();
-
-	    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-	    g.setColor(Color.WHITE);
-	    
-		//ゲーム画面の描画
-		view.drawGame(g, level, boss);
-	    //プレイヤー
-	    view.drawPlayer(g, ap);
-		
-        //壁
-		view.drawWall(g, wall);
-		//障害物
-		view.drawObstacle(g, model.getObstacle());
-
-	    g.drawString("LIFE: " + ap.getLife() , 10, 20);
-	    g.drawString("SCORE: " + model.getScore() , 10, 40);
-	    g.drawString("wall: " + model.getWallCount() , 10, 60);
+		Boss boss = model.getBoss();
+        view.drawGame(g,level, boss);
 	    
 	}
 	
@@ -140,5 +120,6 @@ public class PlayingState implements State {
 	public int getLevel() {
 		return level;
 	}
+
 }
 

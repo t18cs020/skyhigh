@@ -12,8 +12,8 @@ public class Airplane {
 	private static final int SPEED = 10;
 	private static final int AP_LIFE = 3;
 	private static final int ATTACK_SPEED = 25;
-	public static final int WIDTH = 10;
-	public static final int HEIGHT = 10;
+	public static final int WIDTH = 40;
+	public static final int HEIGHT = 40;
 	public static final int DEFAULT_X = 100;
 	public static final int DEFAULT_Y = 100;
 	
@@ -70,6 +70,7 @@ public class Airplane {
 	
 	public void shot() {
 		if(!atk.isExist()) {
+			model.getView().startBomb(model.getBombVolume());
 			atk.shotAttack(apX, apY);
 			if(model.getBoss().isBossExist())
 				deltaAttackCount++;
@@ -127,7 +128,7 @@ public class Airplane {
 	}
 
 	public void heal() {
-		life++;
+		life = life + 2;
 	}
 
 }

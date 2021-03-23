@@ -9,7 +9,7 @@ import javax.swing.Timer;
 
 public class Controller implements ActionListener, KeyListener, MouseListener {
 
-    private static final int DELAY = 100; // msec
+    private static final int DELAY = 25; // msec
     private Model model;
     private Timer timer;
 
@@ -71,7 +71,7 @@ public class Controller implements ActionListener, KeyListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        model.processMousePressed();
+        model.processMousePressed(e.getX(), e.getY());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class Controller implements ActionListener, KeyListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // do nothing
+
     }
 
     @Override

@@ -5,7 +5,7 @@ public class Wall {
 	private boolean exist;
 	private boolean through;
 	public static final int HEIGHT = 40;
-	private static final int SPEED = 15;
+	private static final int[] SPEED = {5,5,6};
 	
 	public Wall(int wy) {
 		super();
@@ -15,8 +15,8 @@ public class Wall {
 		this.through = false;
 	}
 	
-	public void updateWall() {
-		wx -= SPEED;
+	public void updateWall(int level) {
+		wx -= SPEED[level];
 		if(wx < 0) 
 			exist = false;
 	}
