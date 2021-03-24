@@ -284,7 +284,6 @@ public class View extends JPanel {
 				else
 					g.setColor(Color.GRAY);
 				g.fillRect(240 + 61*i, 291, 60, 40);
-				g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 				g.setColor(Color.BLACK);
 				g.drawRect(239 + 61*i, 290, 60, 40);
 				//SE音量調節
@@ -293,10 +292,10 @@ public class View extends JPanel {
 				else
 					g.setColor(Color.GRAY);
 				g.fillRect(240 + 61*i, 351, 60, 40);
-				g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 				g.setColor(Color.BLACK);
 				g.drawRect(239 + 61*i, 350, 60, 40);
 			}
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 			g.drawString("25", 250, 320);
 			g.drawString("50", 310, 320);
 			g.drawString("75", 370, 320);
@@ -306,6 +305,7 @@ public class View extends JPanel {
 			g.drawString("50", 310, 380);
 			g.drawString("75", 370, 380);
 			g.drawString("100", 425, 380);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 			break;
 		case 1:
 			g.drawString("ルール:", 100, 140);
