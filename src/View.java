@@ -14,31 +14,32 @@ public class View extends JPanel {
 
     private Model model;
     // Sample instance variables:
-    private Image imageAp;
-    private Image imageDAp;
-    private Image imageAtk;
-    private Image imageWl;
-    private Image imageBoss;
-    private Image imageBack;
-    private Image imageDBoss;
-    private Image imageBAtk;
-    private Image imageRock;
-    private Image imageBack2;
-    private Image imageBack3;
-    private Image imageBoss2;
-    private Image imageBoss3;
-    private Image bossComing;
-    private Image imageDBoss2;
-    private Image imageDBoss3;
-    private Image imageGirl;
-    private AudioClip bgm;
-    private AudioClip bgm75;
-    private AudioClip bgm50;
-    private AudioClip bgm25;
-    private AudioClip bomb;
-    private AudioClip bomb75;
-    private AudioClip bomb50;
-    private AudioClip bomb25;
+	/*画像，音声*/
+    private Image imageAp;//自機
+    private Image imageDAp;//無敵時間中の自機
+    private Image imageAtk;//自分の弾
+    private Image imageWl;//壁
+    private Image imageBoss;//ボス（レベル1）
+    private Image imageBack;//背景（レベル1）
+    private Image imageDBoss;//無敵時間中のボス（レベル1）
+    private Image imageBAtk;//ボスの弾
+    private Image imageRock;//隕石
+    private Image imageBack2;//背景（レベル2）
+    private Image imageBack3;//背景（レベル3）
+    private Image imageBoss2;//ボス（レベル2）
+    private Image imageBoss3;//ボス（レベル3）
+    private Image bossComing;//"ボスが来た！"画面用の画像
+    private Image imageDBoss2;//無敵時間中のボス（レベル2）
+    private Image imageDBoss3;//無敵時間中のボス（レベル3）
+    private Image imageGirl;//タイトル画面にいる女の子
+    private AudioClip bgm;//bgm（音量100）
+    private AudioClip bgm75;//bgm（音量75）
+    private AudioClip bgm50;//bgm（音量50）
+    private AudioClip bgm25;//bgm（音量25）
+    private AudioClip bomb;//se（音量100）
+    private AudioClip bomb75;//se（音量75）
+    private AudioClip bomb50;//se（音量50）
+    private AudioClip bomb25;//se（音量25）
     
     public View(Model model) {
         this.model = model;
@@ -230,7 +231,7 @@ public class View extends JPanel {
 			g.fillRect(240 + delta * 10, 22, 10, 40);
 		}
 	}
-
+	/*タイトル画面の描画*/
 	public void drawTitle(Graphics g,int cursor, List<Wall> wall) {
 		
 		clear(g);
@@ -256,7 +257,7 @@ public class View extends JPanel {
 		g.drawImage(imageAp, 280, 270 + 50*cursor , this);
 		g.drawImage(imageGirl, 50, 200, this);
 	}
-
+	/*ヘルプ画面の描画*/
 	public void drawHelp(Graphics g, List<Wall> wall, int page) {
 		clear(g);
 		drawWall(g,wall);
@@ -340,7 +341,7 @@ public class View extends JPanel {
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
 		g.drawString((page + 1 )+"/4", 390, 480);
 	}
-
+	//ランキング画面の描画
 	public void drawRanking(Graphics g, List<Integer> ranking, List<Wall> wall) {
 		clear(g);
 	    //本文
@@ -382,7 +383,7 @@ public class View extends JPanel {
 		}
 		g.drawString("Escキーでタイトルに戻る" , 150, 450);
 	}
-	
+	//ポーズ画面の描画
 	public void drawPause(Graphics g, int cursor) {
 		g.setColor(Color.WHITE);
 		g.fillRect(101, 101, 648, 398);
