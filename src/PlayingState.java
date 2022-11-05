@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 
-public class PlayingState implements State {
+public class PlayingState implements State {//ゲーム中のstate
 
 	private Model model;
 	private Airplane ap;
