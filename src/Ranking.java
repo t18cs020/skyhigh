@@ -3,14 +3,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Ranking {
+public class Ranking {//ランキングを管理するクラス
 
-	private List<Integer> score;
+	private List<Integer> score;//スコアのリスト
 	
 	public Ranking() {
 		score = new LinkedList<>();
 	}
-	
+	//リストを読み込む
 	public List<Integer> read(int playerScore) {
 
 		score.add(playerScore);
@@ -30,7 +30,7 @@ public class Ranking {
 		}
 		return score;
 	}
-	
+	//リストに新規追加する
 	public void write() {
 		File file = new File("score.txt");
 		//ランキングファイルに書き込む
