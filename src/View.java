@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class View extends JPanel {
+public class View extends JPanel {//画面描画用のクラス
 
     private Model model;
     // Sample instance variables:
