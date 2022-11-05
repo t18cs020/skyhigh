@@ -3,17 +3,17 @@ import java.util.List;
 
 public class Model {
 
-    private View view;
+    private View view;//画面の描画
     private Controller controller;
-    private State state;
-    private State oldState;
-    private int viewState;
+    private State state;//現在のstate
+    private State oldState;//過去のstate
+    private int viewState;//表示しているstateを管理する数字
     // Sample instance variables:
-    private Airplane ap;
-    private List<Wall> wall;
-    private String typedChar;
-    private Boss boss;
-    private Attack obstacle;//障害物
+    private Airplane ap;//自機
+    private List<Wall> wall;//障害物（壁）
+    private String typedChar;//入力した文字
+    private Boss boss;//ボス
+    private Attack obstacle;//障害物（隕石）
     private static final int OBSTACLE_SPEED = -7;
     
     private static final int COOLTIME = 60;//無敵時間   
@@ -32,8 +32,8 @@ public class Model {
     private int level;
 	private static final int BONUS_SCORE = 500;
     private int bonus;
-    private int bgmVolume;
-    private int bombVolume;
+    private int bgmVolume;//bgmの音量
+    private int bombVolume;//seの音量
     
 	public Model() {
         view = new View(this);
@@ -322,7 +322,7 @@ public class Model {
 		boss.reset(i);
 		wallCount = 0;
 	}
-	
+	/*もう一度ゲームを始めた時にリセットする*/
 	public void newGame() {
         ap = new Airplane(this);
         wall.clear();
