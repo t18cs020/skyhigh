@@ -1,14 +1,14 @@
 import java.awt.Graphics;
 import java.util.List;
 
-public class TitleState implements State{
+public class TitleState implements State{//タイトル画面を表示中のstate
 	private Model model;
 	private View view;
-	private int cursor;
-	private int page;
-	private int help;
-	private List <Integer> ranking;
-	private List <Wall> wall;
+	private int cursor;//カーソル
+	private int page;//ページ数
+	private int help;//ヘルプを表示しているか
+	private List <Integer> ranking;//ランキングのリスト
+	private List <Wall> wall;//背景に表示している壁
 
 	public TitleState(Model model) {
 		super();
@@ -23,22 +23,22 @@ public class TitleState implements State{
 		wall = model.getWall();
 		view.stopBgm();
 	}
-
+	/*入力された時の処理*/
 	public State processKeyTyped(String typed) {
 
 		switch (typed) {
-		case "ENTER" :
+		case "ENTER" ://ENTER（決定）を押された時の処理
 			switch (cursor) {
-			case 0:
+			case 0://ゲーム開始
 				model.newGame();
 				return new PlayingState(model);
-			case 1:
+			case 1://ヘルプ画面へ
 				help = (help+1) % 2;
 				break;
-			case 2:
+			case 2://ランキング画面へ
 				help = (help+1) % 2;
 				break;
-			case 3:
+			case 3://終了する
 				System.exit(0);
 				break;
 			default :
