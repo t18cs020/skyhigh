@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class BossState implements State {
+public class BossState implements State {//"ボスが来た"画面を表示するstate
 
 	private Model model;
 	private View view;
