@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class PauseState implements State {
+public class PauseState implements State {//ポーズ中のstate
 	private Model model;
 	private View view;
 	private int cursor;
