@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import java.util.List;
 
-public class ResultState implements State {
+public class ResultState implements State {//リザルトを表示する画面のstate
 
 	private Model model;
 	private List <Integer> ranking;
