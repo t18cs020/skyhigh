@@ -1,14 +1,14 @@
 
 public class Airplane {
-	private int life;
-	private int apX;
-	private int apY;
-	private int deltaAttackCount;
-	private boolean exist;
-	private Attack atk;
-	private boolean apUndamagedTime;
+	private int life;//体力
+	private int apX;//x座標
+	private int apY;//y座標
+	private int deltaAttackCount;//ダメージを受けてからの時間
+	private boolean exist;//生存しているかどうか
+	private Attack atk;//プレイヤーの弾
+	private boolean apUndamagedTime;//無敵時間であるかどうか
 	private Model model;
-	
+	//プレイ開始時の設定
 	private static final int SPEED = 10;
 	private static final int AP_LIFE = 3;
 	private static final int ATTACK_SPEED = 25;
@@ -29,14 +29,14 @@ public class Airplane {
 		atk = new Attack();
 	}
 
-	
+	/*更新する*/
 	public void update() {
 		apY += 1;
 		if(atk.isExist())
 			atk.updateAttack(ATTACK_SPEED);
 		isOutOfScreen();
 	}
-	
+	/*範囲外へ行かないようにする*/
 	public void isOutOfScreen() {
 		if(apX < 0)apX = 0;
 		if(apX > Game.WIN_WIDTH)apX = Game.WIN_WIDTH;
@@ -47,7 +47,7 @@ public class Airplane {
 		}
 		atk.isOutOfScreen();
 	}
-	
+	/*入力に応じて操作を反映*/
 	public void move(String typedChar) {
 		switch(typedChar) {
 		case "w":
@@ -67,7 +67,7 @@ public class Airplane {
 		}
 		isOutOfScreen();
 	}
-	
+	/*弾を発射する*/
 	public void shot() {
 		if(!atk.isExist()) {
 			model.getView().startBomb(model.getBombVolume());
@@ -92,7 +92,7 @@ public class Airplane {
 	public int getLife() {
 		return life;
 	}
-
+	/*ダメージを受けた時の処理*/
 	public void damagedAirplane() {
 		life--;
 		apUndamagedTime = true;
@@ -100,13 +100,13 @@ public class Airplane {
 			exist = false;
 		}
 	}
-	
+	/*状態をリセットする*/
 	public void reset() {
 		life = AP_LIFE;
 		apUndamagedTime = true;	
 		exist = true;
 	}
-	
+	/*無敵時間かどうかを返す*/
 	public boolean isApUndamegedTime() {
 		return apUndamagedTime;
 	}
@@ -114,7 +114,7 @@ public class Airplane {
 	public void setApUndamegedTime(boolean undamegedTime) {
 		this.apUndamagedTime = undamegedTime;
 	}
-
+	/*生きているかどうかを返す*/
 	public boolean isExist() {
 		return exist;
 	}
@@ -126,7 +126,7 @@ public class Airplane {
 	public void setDeltaAttackCount(int deltaAttackCount) {
 		this.deltaAttackCount = deltaAttackCount;
 	}
-
+	/*ボス撃破時に回復*/
 	public void heal() {
 		life = life + 2;
 	}
