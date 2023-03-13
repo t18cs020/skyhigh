@@ -274,7 +274,7 @@ public class View extends JPanel {//画面描画用のクラス
 			g.drawString("Sキー:下へ移動", 250, 170);
 			g.drawString("Aキー:左へ移動", 250, 200);
 			g.drawString("Dキー:右へ移動", 250, 230);
-			g.drawString("マウスをクリックして攻撃", 250, 260);
+			g.drawString("マウスを左クリックして発射", 250, 260);
 			g.drawString("音量調整:", 100, 320);
 			g.drawString("BGM", 190, 320);
 			g.drawString("SE", 190, 380);
@@ -312,7 +312,7 @@ public class View extends JPanel {//画面描画用のクラス
 			g.drawString("ルール:", 100, 140);
 			g.drawString("一定数壁を超えたらボスが出現します", 250, 140);
 			g.drawString("攻撃によって壁を壊したりボスに", 250, 170);
-			g.drawString("ダメージを与えることがができます", 250, 200);
+			g.drawString("ダメージを与えることができます", 250, 200);
 			g.drawString("ボスの体力が0になったらレベルが上昇し,", 250, 230);
 			g.drawString("プレイヤーの体力が2回復します", 250, 260);
 			g.drawString("また,プレイ中にプレイヤーは", 250, 290);
